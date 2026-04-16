@@ -1,38 +1,109 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#071407">
+<title>Treant Defense</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-#gc{width:100%;max-width:390px;margin:0 auto;background:#0d1f0d;border-radius:12px;overflow:hidden;font-family:var(--font-sans);touch-action:manipulation;display:flex;flex-direction:column}
-#hud{background:#071407;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a3a1a;flex-shrink:0;gap:4px;flex-wrap:wrap}
-.hi{display:flex;align-items:center;gap:3px;font-size:11px;color:#a5d6a7}
-.hv{font-size:12px;font-weight:500;color:#fff}
-#seasonTag{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500;background:#2e7d32;color:#c8e6c9}
-#canvasWrap{width:100%;position:relative;flex-shrink:0}
-#gameCanvas{display:block;width:100%;height:auto}
-#towerPanel{background:#071407;border-top:1px solid #1a3a1a;padding:5px 6px 4px;flex-shrink:0}
-#swBtn{display:block;width:100%;padding:5px;background:#1b5e20;border:none;border-radius:6px;color:#c8e6c9;font-size:12px;cursor:pointer;font-family:var(--font-sans);margin-bottom:4px}
-#swBtn:hover{background:#2e7d32}
+html,body{
+  width:100%;height:100%;
+  background:#071407;
+  overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  touch-action:manipulation;
+}
+#gc{
+  width:100%;
+  max-width:430px;
+  height:100dvh;
+  margin:0 auto;
+  background:#0d1f0d;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+#hud{
+  background:#071407;
+  padding:8px 12px;
+  padding-top:max(8px, env(safe-area-inset-top));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #1a3a1a;
+  flex-shrink:0;
+  gap:4px;
+  flex-wrap:wrap;
+}
+.hi{display:flex;align-items:center;gap:3px;font-size:12px;color:#a5d6a7}
+.hv{font-size:13px;font-weight:500;color:#fff}
+#seasonTag{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;background:#2e7d32;color:#c8e6c9}
+#canvasWrap{
+  flex:1;
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#gameCanvas{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#towerPanel{
+  background:#071407;
+  border-top:1px solid #1a3a1a;
+  padding:6px 8px;
+  padding-bottom:max(6px, env(safe-area-inset-bottom));
+  flex-shrink:0;
+}
+#swBtn{
+  display:block;width:100%;padding:7px;
+  background:#1b5e20;border:none;border-radius:8px;
+  color:#c8e6c9;font-size:13px;cursor:pointer;
+  font-family:inherit;margin-bottom:5px;
+  -webkit-tap-highlight-color:transparent;
+}
+#swBtn:active{background:#2e7d32}
 #swBtn:disabled{opacity:0.5;cursor:not-allowed}
-#towerRow{display:flex;gap:3px;justify-content:center}
-.tb{display:flex;flex-direction:column;align-items:center;background:#0f2010;border:1.5px solid #2d5a2d;border-radius:7px;padding:3px 4px;cursor:pointer;flex:1;min-width:44px;max-width:64px}
-.tb:hover{background:#1a3a1a}
+#towerRow{display:flex;gap:4px;justify-content:center}
+.tb{
+  display:flex;flex-direction:column;align-items:center;
+  background:#0f2010;border:1.5px solid #2d5a2d;border-radius:8px;
+  padding:4px 3px;cursor:pointer;flex:1;min-width:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.tb:active{background:#1a3a1a}
 .tb.sel{border-color:#76ff03;background:#143a14}
-.tIco{font-size:15px;line-height:1.1}
-.tNm{font-size:8px;color:#81c784;text-align:center;line-height:1.2}
-.tCt{font-size:8px;color:#ffd54f}
+.tIco{font-size:18px;line-height:1.1}
+.tNm{font-size:9px;color:#81c784;text-align:center;line-height:1.2}
+.tCt{font-size:9px;color:#ffd54f}
 .tTg{font-size:7px;color:#80cbc4}
-#msgBar{font-size:10px;color:#66bb6a;padding:2px 8px;background:#030f03;min-height:18px;border-top:1px solid #0f2010;text-align:center;flex-shrink:0}
+#msgBar{
+  font-size:11px;color:#66bb6a;
+  padding:3px 10px;background:#030f03;
+  min-height:20px;border-top:1px solid #0f2010;
+  text-align:center;flex-shrink:0;
+}
 .overlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:10;align-items:center;justify-content:center}
 .overlay.show{display:flex}
-.panel{background:#0a1f0a;border:1.5px solid #388e3c;border-radius:12px;padding:12px;min-width:180px;max-width:220px;text-align:center}
-.panel h3{color:#c8e6c9;font-size:13px;margin-bottom:3px}
-.panel .sub{color:#81c784;font-size:10px;margin-bottom:8px}
-.pBtn{display:block;width:100%;padding:5px;margin:3px 0;border-radius:6px;border:1px solid #388e3c;background:#143a14;color:#c8e6c9;font-size:11px;cursor:pointer;font-family:var(--font-sans)}
-.pBtn:hover{background:#1b5e20}
+.panel{background:#0a1f0a;border:1.5px solid #388e3c;border-radius:12px;padding:14px;min-width:200px;max-width:240px;text-align:center}
+.panel h3{color:#c8e6c9;font-size:14px;margin-bottom:4px}
+.panel .sub{color:#81c784;font-size:11px;margin-bottom:10px}
+.pBtn{display:block;width:100%;padding:7px;margin:4px 0;border-radius:7px;border:1px solid #388e3c;background:#143a14;color:#c8e6c9;font-size:12px;cursor:pointer;font-family:inherit}
+.pBtn:active{background:#1b5e20}
 .pBtn.sell{border-color:#c62828;background:#3a0a0a;color:#ef9a9a}
 .pBtn.cancel{border-color:#444;background:#111;color:#999}
-.popup{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:12px;padding:14px 20px;text-align:center;z-index:20;width:220px}
+.popup{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:12px;padding:16px 22px;text-align:center;z-index:20;width:240px}
 </style>
-
+</head>
+<body>
 <div id="gc">
   <div id="hud">
     <div class="hi">&#9728;<span class="hv" id="sunV">150</span></div>
@@ -53,35 +124,35 @@
       </div>
     </div>
     <div class="popup" id="wPop" style="background:#071407;border:2px solid #76ff03">
-      <h2 style="color:#76ff03;font-size:16px;margin-bottom:3px" id="wPopT">Wave Clear!</h2>
-      <p style="color:#c8e6c9;font-size:11px;margin-bottom:8px" id="wPopS"></p>
-      <button style="padding:6px 18px;border-radius:7px;border:none;background:#1b5e20;color:#fff;font-size:12px;cursor:pointer" onclick="closeWPop()">Next Wave</button>
+      <h2 style="color:#76ff03;font-size:17px;margin-bottom:4px" id="wPopT">Wave Clear!</h2>
+      <p style="color:#c8e6c9;font-size:12px;margin-bottom:10px" id="wPopS"></p>
+      <button style="padding:7px 20px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:13px;cursor:pointer;font-family:inherit" onclick="closeWPop()">Next Wave</button>
     </div>
     <div class="popup" id="goPop" style="background:#1a0000;border:2px solid #c62828">
-      <h2 style="color:#ef5350;font-size:18px;margin-bottom:5px">The Seed Falls...</h2>
-      <p style="color:#ffcdd2;font-size:11px;margin-bottom:10px" id="goSub"></p>
-      <button style="padding:7px 22px;border-radius:7px;border:none;background:#b71c1c;color:#fff;font-size:12px;cursor:pointer" onclick="restart()">Try Again</button>
+      <h2 style="color:#ef5350;font-size:19px;margin-bottom:6px">The Seed Falls...</h2>
+      <p style="color:#ffcdd2;font-size:12px;margin-bottom:12px" id="goSub"></p>
+      <button style="padding:8px 24px;border-radius:8px;border:none;background:#b71c1c;color:#fff;font-size:13px;cursor:pointer;font-family:inherit" onclick="restart()">Try Again</button>
     </div>
-    <div class="popup" id="eiPop" style="background:#071407;border:2px solid #e65100;width:240px">
-      <h2 style="color:#ffa726;font-size:13px;margin-bottom:3px" id="eiT">New Enemy!</h2>
-      <div style="font-size:28px;margin:5px 0" id="eiIco">?</div>
-      <p style="color:#ffe0b2;font-size:10px;margin-bottom:2px" id="eiD"></p>
-      <p style="color:#ffcc80;font-style:italic;font-size:9px;margin:4px 0" id="eiQ"></p>
-      <button style="margin-top:6px;padding:5px 16px;border-radius:6px;border:none;background:#e65100;color:#fff;font-size:11px;cursor:pointer" onclick="closeEI()">Prepare!</button>
+    <div class="popup" id="eiPop" style="background:#071407;border:2px solid #e65100;width:260px">
+      <h2 style="color:#ffa726;font-size:14px;margin-bottom:4px" id="eiT">New Enemy!</h2>
+      <div style="font-size:32px;margin:6px 0" id="eiIco">?</div>
+      <p style="color:#ffe0b2;font-size:11px;margin-bottom:3px" id="eiD"></p>
+      <p style="color:#ffcc80;font-style:italic;font-size:10px;margin:5px 0" id="eiQ"></p>
+      <button style="margin-top:8px;padding:6px 18px;border-radius:7px;border:none;background:#e65100;color:#fff;font-size:12px;cursor:pointer;font-family:inherit" onclick="closeEI()">Prepare!</button>
     </div>
   </div>
   <div id="towerPanel">
     <button id="swBtn">Start Wave 1</button>
     <div id="towerRow">
-      <div class="tb sel" data-t="oak" onclick="selTower('oak')"><span class="tIco">&#127795;</span><span class="tNm">Oak</span><span class="tCt">&#9728;80</span><span class="tTg">Ground+</span></div>
-      <div class="tb" data-t="pine" onclick="selTower('pine')"><span class="tIco">&#127794;</span><span class="tNm">Pine</span><span class="tCt">&#9728;60</span><span class="tTg">Air+</span></div>
-      <div class="tb" data-t="willow" onclick="selTower('willow')"><span class="tIco">&#127807;</span><span class="tNm">Willow</span><span class="tCt">&#9728;70</span><span class="tTg">Slow+Air</span></div>
-      <div class="tb" data-t="mangrove" onclick="selTower('mangrove')"><span class="tIco">&#127796;</span><span class="tNm">Mangrove</span><span class="tCt">&#9728;90</span><span class="tTg">Root+Gnd</span></div>
-      <div class="tb" data-t="elder" onclick="selTower('elder')"><span class="tIco">&#127808;</span><span class="tNm">Elder</span><span class="tCt">&#9728;150</span><span class="tTg">All+Boss</span></div>
+      <div class="tb sel" data-t="oak" onclick="selTower('oak')"><span class="tIco">🌳</span><span class="tNm">Oak</span><span class="tCt">☀80</span><span class="tTg">Ground+</span></div>
+      <div class="tb" data-t="pine" onclick="selTower('pine')"><span class="tIco">🌲</span><span class="tNm">Pine</span><span class="tCt">☀60</span><span class="tTg">Air+</span></div>
+      <div class="tb" data-t="willow" onclick="selTower('willow')"><span class="tIco">🌿</span><span class="tNm">Willow</span><span class="tCt">☀70</span><span class="tTg">Slow+Air</span></div>
+      <div class="tb" data-t="mangrove" onclick="selTower('mangrove')"><span class="tIco">🌴</span><span class="tNm">Mangrove</span><span class="tCt">☀90</span><span class="tTg">Root+Gnd</span></div>
+      <div class="tb" data-t="elder" onclick="selTower('elder')"><span class="tIco">🌳</span><span class="tNm">Elder</span><span class="tCt">☀150</span><span class="tTg">All+Boss</span></div>
       <div class="tb" data-t="none" onclick="selTower('none')" style="border-color:#c62828;max-width:52px">
-        <span class="tIco" style="font-size:13px">&#128119;</span>
-        <span class="tNm" style="color:#ef9a9a;font-size:7px">Manage</span>
-        <span class="tNm" style="color:#ef9a9a;font-size:7px">Tower</span>
+        <span class="tIco" style="font-size:14px">🧑‍🌾</span>
+        <span class="tNm" style="color:#ef9a9a;font-size:8px">Manage</span>
+        <span class="tNm" style="color:#ef9a9a;font-size:8px">Tower</span>
       </div>
     </div>
   </div>
@@ -96,10 +167,16 @@ let CELL=40;
 const SEED_C=Math.floor(COLS/2),SEED_R=ROWS-1;
 
 function resize(){
-  const w=document.getElementById('canvasWrap').clientWidth||360;
-  CELL=Math.floor(w/COLS);
+  const wrap=document.getElementById('canvasWrap');
+  const w=wrap.clientWidth;
+  const h=wrap.clientHeight;
+  const cellByW=Math.floor(w/COLS);
+  const cellByH=Math.floor(h/ROWS);
+  CELL=Math.min(cellByW,cellByH);
   canvas.width=COLS*CELL;
   canvas.height=ROWS*CELL;
+  canvas.style.width=COLS*CELL+'px';
+  canvas.style.height=ROWS*CELL+'px';
 }
 resize();
 window.addEventListener('resize',resize);
@@ -145,8 +222,7 @@ let introsShown=new Set(),pendingCb=null;
 
 const $=id=>document.getElementById(id);
 const msg=t=>{$('msgBar').textContent=t};
-
-function isBlocked(c,r){return towers.some(t=>t.c===c&&t.r===r);}
+const isBlocked=(c,r)=>towers.some(t=>t.c===c&&t.r===r);
 
 function updateHUD(){
   $('sunV').textContent=Math.floor(sun);
@@ -232,7 +308,6 @@ function doSell(){
   sun+=ref;towers.splice(selTowerIdx,1);
   updateHUD();closeTPop();msg('Sold for '+ref+' sunlight.');
 }
-
 function showEI(key,cb){
   const d=EDEFS[key];if(!d){cb();return;}
   $('eiT').textContent='New Enemy: '+d.intro.t;
@@ -274,16 +349,11 @@ function startWave(){
   if(newIntros.length>0)showEI(newIntros[0],doSpawn);
   else doSpawn();
 }
-
 function doSpawnList(list){
   list.forEach((k,i)=>{
-    setTimeout(()=>{
-      if(!waveActive)return;
-      spawnEnemy(k);spawnedCount++;
-    },i*500);
+    setTimeout(()=>{if(!waveActive)return;spawnEnemy(k);spawnedCount++;},i*500);
   });
 }
-
 function spawnEnemy(key){
   const def=EDEFS[key];if(!def)return;
   const sm=SEASONS[seasonIdx].spdMod;
@@ -291,15 +361,13 @@ function spawnEnemy(key){
   const col=Math.floor(Math.random()*COLS);
   enemies.push({
     key,e:def.e,col:def.col,name:def.name,
-    hp:scaledHp,maxHp:scaledHp,
-    spd:def.spd*sm,rwd:def.rwd,dmg:def.dmg,
+    hp:scaledHp,maxHp:scaledHp,spd:def.spd*sm,rwd:def.rwd,dmg:def.dmg,
     isAir:def.isAir,isBoss:def.isBoss,breaker:def.breaker,
     laneC:col,x:(col+0.5)*CELL,y:-CELL*0.5,
     targetX:(col+0.5)*CELL,sliding:false,
     slowT:0,dead:false,reached:false
   });
 }
-
 function onWaveComplete(){
   if(waveClearPending||gameOverFlag)return;
   waveClearPending=true;waveActive=false;
@@ -330,7 +398,6 @@ function restart(){
   $('swBtn').disabled=false;$('swBtn').textContent='Start Wave 1';
   updateHUD();msg('Place Treants to block lanes and funnel enemies!');
 }
-
 $('swBtn').addEventListener('click',()=>{if(!waveActive&&!waveClearPending&&!gameOverFlag)startWave();});
 
 function moveEnemy(en,dt){
@@ -339,13 +406,8 @@ function moveEnemy(en,dt){
   if(en.breaker){en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;return;}
   if(en.sliding){
     const dx=en.targetX-en.x;
-    if(Math.abs(dx)<=spd){
-      en.x=en.targetX;
-      en.laneC=Math.round((en.targetX-CELL/2)/CELL);
-      en.sliding=false;
-    } else {
-      en.x+=Math.sign(dx)*spd;
-    }
+    if(Math.abs(dx)<=spd){en.x=en.targetX;en.laneC=Math.round((en.targetX-CELL/2)/CELL);en.sliding=false;}
+    else{en.x+=Math.sign(dx)*spd;}
     return;
   }
   const curC=Math.round((en.x-CELL/2)/CELL);
@@ -378,8 +440,7 @@ function update(dt){
   }
   const dm=S.dmgMod,rm=S.rangeMod;
   towers.forEach(t=>{
-    t.cooldown=Math.max(0,t.cooldown-dt);
-    if(t.cooldown>0)return;
+    t.cooldown=Math.max(0,t.cooldown-dt);if(t.cooldown>0)return;
     const tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2,effR=t.range*CELL*rm;
     let target=null,bestY=-Infinity;
     enemies.forEach(en=>{
@@ -403,8 +464,7 @@ function update(dt){
     const dx=p.x-p.target.x,dy=p.y-p.target.y;
     if(Math.sqrt(dx*dx+dy*dy)<12){
       p.target.hp-=p.dmg;
-      if(p.slow)p.target.slowT=1.8;
-      if(p.root)p.target.slowT=2.8;
+      if(p.slow)p.target.slowT=1.8;if(p.root)p.target.slowT=2.8;
       if(p.target.hp<=0){p.target.dead=true;score+=p.target.rwd;sun=Math.min(sun+Math.floor(p.target.rwd*0.3),999);updateHUD();}
       p.done=true;
     }
@@ -425,19 +485,17 @@ function render(){
   for(let r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(COLS*CELL,r*CELL);ctx.stroke();}
   for(let c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,ROWS*CELL);ctx.stroke();}
   if(selType&&selType!=='none'){
-    for(let r=0;r<ROWS;r++){
-      for(let c=0;c<COLS;c++){
-        if(r===SEED_R&&c===SEED_C)continue;
-        if(towers.some(t=>t.c===c&&t.r===r))continue;
-        ctx.fillStyle='rgba(118,255,3,0.07)';ctx.fillRect(c*CELL+1,r*CELL+1,CELL-2,CELL-2);
-      }
-    }
+    for(let r=0;r<ROWS;r++){for(let c=0;c<COLS;c++){
+      if(r===SEED_R&&c===SEED_C)continue;
+      if(towers.some(t=>t.c===c&&t.r===r))continue;
+      ctx.fillStyle='rgba(118,255,3,0.07)';ctx.fillRect(c*CELL+1,r*CELL+1,CELL-2,CELL-2);
+    }}
   }
   ctx.fillStyle='rgba(249,168,37,0.3)';ctx.fillRect(SEED_C*CELL,SEED_R*CELL,CELL,CELL);
   ctx.font='bold '+(CELL*0.62)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillText('★',SEED_C*CELL+CELL/2,SEED_R*CELL+CELL/2);
   ctx.fillStyle='rgba(198,40,40,0.35)';ctx.fillRect(0,0,COLS*CELL,5);
-  ctx.fillStyle='#ef9a9a';ctx.font='bold 8px sans-serif';ctx.textAlign='center';ctx.textBaseline='top';
+  ctx.fillStyle='#ef9a9a';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.textBaseline='top';
   ctx.fillText('ENEMY SPAWN',COLS*CELL/2,6);
   towers.forEach((t,idx)=>{
     const x=t.c*CELL+CELL/2,y=t.r*CELL+CELL/2;
@@ -445,7 +503,7 @@ function render(){
     ctx.fillStyle=t.col;ctx.fillRect(t.c*CELL+2,t.r*CELL+2,CELL-4,CELL-4);
     const im={oak:'🌳',pine:'🌲',willow:'🌿',mangrove:'🌴',elder:'🌳'};
     ctx.font=(CELL*0.52)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(im[t.type]||'🌿',x,y);
-    if(t.tier>0){ctx.fillStyle='#ffd54f';ctx.font='bold 8px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('T'+t.tier,t.c*CELL+2,t.r*CELL+2);}
+    if(t.tier>0){ctx.fillStyle='#ffd54f';ctx.font='bold 9px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('T'+t.tier,t.c*CELL+2,t.r*CELL+2);}
     const bw=CELL-6,bh=3,bx=t.c*CELL+3,by=t.r*CELL+CELL-6;
     ctx.fillStyle='#111';ctx.fillRect(bx,by,bw,bh);
     const pct=Math.max(0,t.hp/t.maxHp);
@@ -460,14 +518,14 @@ function render(){
     ctx.fillStyle='#111';ctx.fillRect(bx,by,bw,bh);
     const pct=Math.max(0,en.hp/en.maxHp);
     ctx.fillStyle=en.isAir?'#ce93d8':en.isBoss?'#ff5252':'#e53935';ctx.fillRect(bx,by,Math.floor(bw*pct),bh);
-    if(en.slowT>0){ctx.fillStyle='rgba(100,181,246,0.9)';ctx.font='7px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SLOW',en.x,en.y-sz*0.72);}
+    if(en.slowT>0){ctx.fillStyle='rgba(100,181,246,0.9)';ctx.font='8px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SLOW',en.x,en.y-sz*0.72);}
   });
   projs.forEach(p=>{if(p.done)return;ctx.fillStyle=p.col||'#aed581';ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill();});
   if(waveActive&&totalToSpawn>0){
     const alive=enemies.filter(e=>!e.dead&&!e.reached).length+Math.max(0,totalToSpawn-spawnedCount);
-    ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(0,canvas.height-16,canvas.width,16);
-    ctx.fillStyle='#a5d6a7';ctx.font='9px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText('Enemies remaining: '+alive,canvas.width/2,canvas.height-8);
+    ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(0,canvas.height-18,canvas.width,18);
+    ctx.fillStyle='#a5d6a7';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('Enemies remaining: '+alive,canvas.width/2,canvas.height-9);
   }
 }
 
@@ -478,6 +536,8 @@ function loop(ts){
   render();requestAnimationFrame(loop);
 }
 updateHUD();
-msg('Select a tower type below, then tap any cell to place it!');
+msg('Select a tower and tap any cell to place it!');
 requestAnimationFrame(ts=>{lastTime=ts;requestAnimationFrame(loop);});
 </script>
+</body>
+</html>
