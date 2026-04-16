@@ -818,7 +818,7 @@ function getPos(e){
 
 function onTap(e){
   e.preventDefault();
-  if(gameOverFlag||waveClearPending)return;
+  if(gameOverFlag)return;
   if(!$('gamePage').classList.contains('active'))return;
   var pos=getPos(e);var c=pos.c,r=pos.r;
   if(c<0||c>=COLS||r<0||r>=ROWS)return;
@@ -955,7 +955,7 @@ function buildWaveList(w){
 }
 
 function startWave(){
-  if(waveActive||waveClearPending||gameOverFlag)return;
+  if(waveActive||gameOverFlag)return;
   waveNum++;
   if(waveNum%10===0){seasonIdx=(seasonIdx+1)%4;msg('Season: '+SEASONS[seasonIdx].name+'!');}
   updateHUD();$('swBtn').disabled=true;$('swBtn').textContent='Wave '+waveNum+' in progress...';
@@ -1000,12 +1000,12 @@ function clearWaveCountdown(){
 function skipCountdown(){
   clearWaveCountdown();
   $('wPop').style.display='none';
-  waveClearPending=false;
   if(!waveActive&&!gameOverFlag)startWave();
 }
 
 function closeWPop(){
-  // Called after wave clear — shows popup with countdown, player can still build
+  // Immediately unblock the game loop — countdown runs in background
+  waveClearPending=false;
   $('swBtn').disabled=false;
   $('swBtn').textContent='▶ Wave '+(waveNum+1)+' in 8s';
   msg('★ Build towers! Wave '+(waveNum+1)+' launches in 8 seconds...');
@@ -1025,7 +1025,6 @@ function closeWPop(){
     if(countdown<=0){
       clearWaveCountdown();
       $('wPop').style.display='none';
-      waveClearPending=false;
       if(!waveActive&&!gameOverFlag)startWave();
     }
   },1000);
@@ -1038,7 +1037,7 @@ function triggerGameOver(){
 function restartGame(){$('goPop').style.display='none';initGame();}
 $('swBtn').addEventListener('click',function(){
   if(waveCountdownTimer){skipCountdown();return;}
-  if(!waveActive&&!waveClearPending&&!gameOverFlag)startWave();
+  if(!waveActive&&!gameOverFlag)startWave();
 });
 
 function spawnParticles(x,y,col,count){
