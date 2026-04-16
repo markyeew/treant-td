@@ -171,7 +171,7 @@ function showPage(id){
         <div class="section-box">
           <div class="section-title">&#8679; Upgrade Path</div>
           <div class="row"><div class="dot"></div><div class="row-text">T1 &rarr; Ancient Oak (120&#9728;) &mdash; +150 HP, +20 DMG</div></div>
-          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 &rarr; Ironbark Oak (200&#9728;) &mdash; +200 HP, +30 DMG, reflects melee</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 &rarr; Ironbark Oak (200&#9728;) &mdash; +200 HP, +30 DMG, stuns ground enemies for 0.8s (2.5s immunity after)</div></div>
         </div>
         <div class="syn-box">
           <div class="section-title">&#10022; Synergy Partners</div>
@@ -236,8 +236,8 @@ function showPage(id){
         </div>
         <div class="section-box">
           <div class="section-title">&#8679; Upgrade Path</div>
-          <div class="row"><div class="dot"></div><div class="row-text">T1 &rarr; Weeping Willow (110&#9728;) &mdash; +range, slow +0.5s</div></div>
-          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 &rarr; Wrath Willow (190&#9728;) &mdash; aura damage doubles, heals adjacent towers</div></div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 &rarr; Weeping Willow (110&#9728;) &mdash; +range, slow strengthens to 70% speed reduction</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 &rarr; Wrath Willow (190&#9728;) &mdash; aura damage doubles, slow at 85% speed reduction</div></div>
         </div>
         <div class="syn-box">
           <div class="section-title">&#10022; Synergy Partners</div>
@@ -614,7 +614,7 @@ var TDEFS={
 var UPS={
   oak:     [{name:'Ancient Oak',  cost:120,hpB:150,dmgB:20,rngB:0.3},{name:'Ironbark Oak',  cost:200,hpB:200,dmgB:30,rngB:0}],
   pine:    [{name:'Elder Pine',   cost:100,hpB:60, dmgB:22,rngB:0.4},{name:'Storm Pine',    cost:180,hpB:80, dmgB:40,rngB:0.6}],
-  willow:  [{name:'Weep Willow',  cost:110,hpB:50, dmgB:4, rngB:0.4},{name:'Wrath Willow',  cost:190,hpB:80, dmgB:8, rngB:0.4}],
+  willow:  [{name:'Weep Willow',  cost:110,hpB:50, dmgB:4, rngB:0.4},{name:'Wrath Willow',  cost:190,hpB:80, dmgB:8, rngB:0.4}], // T0:45% spd, T1:30% spd, T2:15% spd
   mangrove:[{name:'Deep Mangrove',cost:130,hpB:100,dmgB:15,rngB:0.2,splashB:0.5},{name:'Root Fortress',cost:210,hpB:150,dmgB:30,rngB:0.2,splashB:0.3}],
   elder:   [{name:'Elder Lord',   cost:200,hpB:200,dmgB:35,rngB:0.4},{name:'World Tree',    cost:350,hpB:300,dmgB:60,rngB:0.8}]
 };
@@ -979,7 +979,7 @@ function spawnEnemy(key){
     hp:scaledHp,maxHp:scaledHp,spd:def.spd*sm,rwd:def.rwd,
     isAir:def.isAir,isBoss:def.isBoss,breaker:def.breaker,
     laneC:col,x:(col+0.5)*CELL,y:-CELL*0.5,
-    targetX:(col+0.5)*CELL,sliding:false,slowT:0,dead:false,reached:false});
+    targetX:(col+0.5)*CELL,sliding:false,slowT:0,slowFactor:1.0,stunT:0,stunCooldown:0,hitFlash:0,deathT:0,dead:false,reached:false});
 }
 function onWaveComplete(){
   if(waveClearPending||gameOverFlag)return;
@@ -1050,7 +1050,9 @@ function spawnParticles(x,y,col,count){
 }
 
 function moveEnemy(en,dt){
-  var spd=en.spd*CELL*dt;
+  // apply slow factor: 1.0 = full speed, 0.45 = 55% slowed etc.
+  var slowMult=(en.slowT>0)?(en.slowFactor||0.45):1.0;
+  var spd=en.spd*CELL*dt*slowMult;
   if(en.isAir){en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;return;}
   if(en.breaker){en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;return;}
   if(en.sliding){
@@ -1072,11 +1074,19 @@ function moveEnemy(en,dt){
   en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;
 }
 
-function applyDmg(en,dmg,slowAdd,rootAdd){
+function applyDmg(en,dmg,slowAdd,rootAdd,slowFactor,stunDur){
   en.hp-=dmg;
   en.hitFlash=0.12;
-  if(slowAdd>0)en.slowT=Math.max(en.slowT,slowAdd);
-  if(rootAdd>0)en.slowT=Math.max(en.slowT,rootAdd);
+  // slow: partial speed reduction
+  if(slowAdd>0){
+    if(slowAdd>en.slowT){en.slowT=slowAdd;en.slowFactor=slowFactor||0.45;}
+    else if(slowAdd===en.slowT&&(slowFactor||0.45)<(en.slowFactor||1)){en.slowFactor=slowFactor||0.45;}
+  }
+  // stun: full stop (root from mangrove treated as stun)
+  if(rootAdd>0){en.stunT=Math.max(en.stunT||0,rootAdd);}
+  if(stunDur>0&&!(en.stunCooldown>0)){
+    en.stunT=Math.max(en.stunT||0,stunDur);
+  }
   if(en.hp<=0&&!en.dead){
     en.dead=true;score+=en.rwd;sun=Math.min(sun+Math.floor(en.rwd*0.3),999);updateHUD();
     spawnParticles(en.x,en.y,en.ecol||'#ef5350',8);
@@ -1097,7 +1107,15 @@ function update(dt){
     if(en.dead){if(!en.deathT)en.deathT=0.4;en.deathT-=dt;continue;}
     if(en.reached)continue;
     if(en.hitFlash>0)en.hitFlash-=dt;
-    if(en.slowT>0){en.slowT-=dt;continue;}
+    // stun: full stop (Ironbark Oak T2)
+    if(en.stunCooldown>0)en.stunCooldown-=dt;
+    if(en.stunT>0){
+      en.stunT-=dt;
+      if(en.stunT<=0){en.stunT=0;en.stunCooldown=2.5;} // 2.5s immunity after stun
+      continue;
+    }
+    // slow: reduced movement speed
+    if(en.slowT>0){en.slowT-=dt;if(en.slowT<0)en.slowT=0;}
     moveEnemy(en,dt);
     if(en.reached){lives=Math.max(0,lives-1);updateHUD();if(lives<=0){triggerGameOver();return;}}
   }
@@ -1111,6 +1129,8 @@ function update(dt){
       if(t.aoeCooldown<=0){
         t.aoeCooldown=1.0;
         var slowDur=1.8+(t.synSlowBonus||0);
+        // Willow slow factor scales with tier: T0=45% speed, T1=30%, T2=15%
+        var willowSlowFactor=t.tier===2?0.15:t.tier===1?0.30:0.45;
         var hit=false;
         enemies.forEach(function(en){
           if(en.dead||en.reached)return;
@@ -1121,7 +1141,7 @@ function update(dt){
             if(en.isBoss)d2*=(t.bB+(t.synBossBonus||0));
             else if(en.isAir)d2*=t.aB;
             else d2*=(t.gB+(t.synGBonus||0));
-            applyDmg(en,d2,slowDur,0);hit=true;
+            applyDmg(en,d2,slowDur,0,willowSlowFactor,0);hit=true;
           }
         });
         if(hit)aoeEffects.push({x:tx,y:ty,r:es.effRange,life:0.5,maxLife:0.5,type:'willow'});
@@ -1139,9 +1159,12 @@ function update(dt){
     t.cooldown=1/es.effRate;
     t.attackFlash=0.18;
     var dx2=target.x-tx,dy2=target.y-ty,len=Math.sqrt(dx2*dx2+dy2*dy2)||1;
+    // Ironbark Oak (oak T2) stuns ground enemies briefly
+    var projStun=(t.type==='oak'&&t.tier>=2&&!target.isAir&&!target.isBoss)?0.8:0;
     projs.push({x:tx,y:ty,vx:dx2/len*400,vy:dy2/len*400,
       dmg:t.dmg*dm*(1+(t.synDmgBonus||0)),target:target,col:t.glowCol,ptype:t.type,
       slow:t.slow||false,root:t.root||false,slowExtra:t.synSlowOnHit||0,
+      slowFactor:0.45,stunDur:projStun,
       splash:es.effSplash,gB:t.gB+(t.synGBonus||0),aB:t.aB+(t.synAirBonus||0),
       bB:t.bB+(t.synBossBonus||0),done:false});
   });
@@ -1156,17 +1179,18 @@ function update(dt){
       var fdmg=p.dmg;
       if(p.target.isBoss)fdmg*=p.bB;else if(p.target.isAir)fdmg*=p.aB;else fdmg*=p.gB;
       var slowDur2=(p.slow?1.8:0)+(p.slowExtra||0);
+      var projSlowFactor=p.slowFactor||0.45;
       var rootDur=p.root?2.8:0;
       if(p.splash>0){
         var sr=p.splash*CELL;
         enemies.forEach(function(en){
           if(en.dead||en.reached||en.isAir)return;
           var ex=en.x-p.target.x,ey=en.y-p.target.y;
-          if(Math.sqrt(ex*ex+ey*ey)<=sr)applyDmg(en,fdmg*(en===p.target?1:0.6),slowDur2,rootDur);
+          if(Math.sqrt(ex*ex+ey*ey)<=sr)applyDmg(en,fdmg*(en===p.target?1:0.6),slowDur2,rootDur,projSlowFactor,p.stunDur||0);
         });
         aoeEffects.push({x:p.target.x,y:p.target.y,r:sr,life:0.4,maxLife:0.4,type:'mangrove'});
       }else{
-        applyDmg(p.target,fdmg,slowDur2,rootDur);
+        applyDmg(p.target,fdmg,slowDur2,rootDur,projSlowFactor,p.stunDur||0);
       }
       p.done=true;
     }
@@ -1374,9 +1398,21 @@ function render(){
     var pct=Math.max(0,en.hp/en.maxHp);
     ctx.fillStyle=en.isAir?'#ce93d8':en.isBoss?'#ff5252':'#e53935';
     if(pct>0){drawRR(bx,by,Math.floor(bw*pct),bh,1);ctx.fill();}
-    if(en.slowT>0){
-      ctx.fillStyle='rgba(100,181,246,0.85)';ctx.font='8px -apple-system,sans-serif';
-      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SLOW',en.x,en.y-sz*0.72);
+    if(en.stunT>0){
+      ctx.fillStyle='rgba(255,255,255,0.9)';ctx.font='bold 9px -apple-system,sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('✶ STUN',en.x,en.y-sz*0.82);
+    } else if(en.stunCooldown>0){
+      // stun immunity — faint indicator
+      ctx.fillStyle='rgba(180,180,255,0.4)';ctx.font='8px -apple-system,sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('□',en.x,en.y-sz*0.78);
+    } else if(en.slowT>0){
+      // slow: blue indicator with intensity based on slowFactor
+      var slowPct=Math.round((1-(en.slowFactor||0.45))*100);
+      ctx.fillStyle='rgba(100,181,246,0.9)';ctx.font='bold 8px -apple-system,sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('❄ -'+slowPct+'%',en.x,en.y-sz*0.82);
     }
   });
 
