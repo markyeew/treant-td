@@ -480,7 +480,7 @@ function showPage(id){
 <!-- GAME PAGE -->
 <div id="gamePage" class="page">
   <div id="hud">
-    <div class="hi" style="background:#1a1400;border:1px solid #3a2e00;border-radius:8px;padding:2px 6px;gap:4px">☀️<span class="hv" id="sunV" style="color:#ffd54f">200</span></div>
+    <div class="hi" style="background:#1a1400;border:1px solid #3a2e00;border-radius:8px;padding:2px 6px;gap:4px">☀️<span class="hv" id="sunV" style="color:#ffd54f">250</span></div>
     <div class="hi">Seed:<span class="hv" id="livV">3</span></div>
     <div class="hi">Wave:<span class="hv" id="wavV">0</span></div>
     <div class="hi">Score:<span class="hv" id="scrV">0</span></div>
@@ -626,8 +626,8 @@ var UPS={
 };
 
 var EDEFS={
-  goblin: {name:'Goblin Woodcutter',e:'&#128520;',hp:100,spd:0.8,rwd:15,isAir:false,isBoss:false,breaker:false,introW:1,ecol:'#8bc34a',intro:{t:'Goblin Woodcutter',d:'Stays in lane — blocked by towers! Oak & Mangrove deal +50% dmg.',q:'"Chop chop! The forest burns!"'}},
-  sprite: {name:'Shadow Sprite',   e:'&#128123;',hp:55, spd:2.0,rwd:20,isAir:false,isBoss:false,breaker:false,introW:3,ecol:'#7e57c2',intro:{t:'Shadow Sprite',d:'Extremely fast. Stays in lane. Pine pierce hits groups!',q:'"You cannot stop what has no shadow..."'}},
+  goblin: {name:'Goblin Woodcutter',e:'&#128520;',hp:80, spd:0.75,rwd:15,isAir:false,isBoss:false,breaker:false,introW:1,ecol:'#8bc34a',intro:{t:'Goblin Woodcutter',d:'Stays in lane — blocked by towers! Oak & Mangrove deal +50% dmg.',q:'"Chop chop! The forest burns!"'}},
+  sprite: {name:'Shadow Sprite',   e:'&#128123;',hp:40, spd:1.8,rwd:20,isAir:false,isBoss:false,breaker:false,introW:3,ecol:'#7e57c2',intro:{t:'Shadow Sprite',d:'Extremely fast. Stays in lane. Pine pierce hits groups!',q:'"You cannot stop what has no shadow..."'}},
   wraith: {name:'Blightborn Wraith',e:'&#128127;',hp:90,spd:1.25,rwd:30,isAir:false,isBoss:false,breaker:false,introW:6,ecol:'#546e7a',intro:{t:'Blightborn Wraith',d:'Stays in lane. Willow AoE works best on it.',q:'"The blight comes for every root..."'}},
   golem:  {name:'Stone Golem',     e:'&#129408;',hp:400,spd:0.28,rwd:50,isAir:false,isBoss:false,breaker:false,introW:9,ecol:'#78909c',intro:{t:'Stone Golem',d:'Massive HP, very slow. Oak +50% crush!',q:'"Nothing grows where I tread."'}},
   shaman: {name:'Plague Shaman',   e:'&#129664;',hp:90, spd:0.75,rwd:40,isAir:false,isBoss:false,breaker:false,introW:13,ecol:'#388e3c',intro:{t:'Plague Shaman',d:'Buffs nearby enemies and rots towers!',q:'"The rot spreads. I am inevitable."'}},
@@ -783,7 +783,7 @@ function getEffStats(t,S){
 }
 
 function initGame(){
-  sun=200;lives=3;waveNum=0;score=0;seasonIdx=0;
+  sun=250;lives=3;waveNum=0;score=0;seasonIdx=0;
   towers=[];enemies=[];projs=[];aoeEffects=[];particles=[];
   selType='oak';selTowerIdx=-1;
   waveActive=false;waveClearPending=false;gameOverFlag=false;
@@ -958,7 +958,8 @@ function closeEI(){
 function buildWaveList(w){
   var list=[];
   // More enemies per wave, ramps faster
-  var count=Math.floor(8+w*3);
+  // Wave 1=8, wave5=16, wave10=26, wave20=46 — gentle early, steep late
+  var count=Math.floor(6+Math.pow(w,1.4));
   for(var i=0;i<count;i++){
     if(w>=20&&i%8===0){list.push('king');continue;}
     if(w>=17&&i%4===0){list.push('drake');continue;}
@@ -986,23 +987,26 @@ function startWave(){
   if(ni.length>0)showEI(ni[0],doSpawn);else doSpawn();
 }
 function doSpawnList(list){
-  list.forEach(function(k,i){setTimeout(function(){if(!waveActive)return;spawnEnemy(k);spawnedCount++;},i*300);});
+  list.forEach(function(k,i){// Spawn gap: 500ms wave1, shrinks to 250ms by wave10
+        var gap=Math.max(250,500-waveNum*20);
+        setTimeout(function(){if(!waveActive)return;spawnEnemy(k);spawnedCount++;},i*gap);});
 }
 function spawnEnemy(key){
   var def=EDEFS[key];if(!def)return;
   var sm=SEASONS[seasonIdx].spdMod;
   // Exponential scaling: wave 5 = 1.6x, wave 10 = 2.6x, wave 20 = 6.7x
-  var scaledHp=Math.floor(def.hp*Math.pow(1.18,waveNum-1));
+  // wave1=1.0x, wave5=1.57x, wave10=2.77x, wave20=8.65x
+  var scaledHp=Math.floor(def.hp*Math.pow(1.14,waveNum-1));
   // Cluster: every 4th spawn targets same column as last to create pressure
   var col;
-  if(spawnedCount%4===3&&enemies.length>0){
+  if(waveNum>=5&&spawnedCount%4===3&&enemies.length>0){
     var lastAlive=enemies.filter(function(e){return !e.dead&&!e.reached;});
     col=lastAlive.length>0?lastAlive[lastAlive.length-1].laneC:Math.floor(Math.random()*COLS);
   } else {
     col=Math.floor(Math.random()*COLS);
   }
-  // Speed scales +4% per wave, capped at 2.2x base speed
-  var spdScale=Math.min(1+waveNum*0.04,2.2);
+  // Speed only increases from wave 4 onwards, +5% per wave after that
+  var spdScale=waveNum<=3?1.0:Math.min(1+(waveNum-3)*0.05,2.0);
   enemies.push({key:key,e:def.e,ecol:def.ecol,name:def.name,
     hp:scaledHp,maxHp:scaledHp,spd:def.spd*sm*spdScale,rwd:def.rwd,
     isAir:def.isAir,isBoss:def.isBoss,breaker:def.breaker,
@@ -1012,7 +1016,8 @@ function spawnEnemy(key){
 function onWaveComplete(){
   if(waveClearPending||gameOverFlag)return;
   waveClearPending=true;waveActive=false;
-  var bonus=15+waveNum*6;var earned=Math.floor(bonus*SEASONS[seasonIdx].sunMod);
+  // Early waves give generous rewards, tapers off later
+  var bonus=Math.floor(40-waveNum*0.5)+waveNum*8;var earned=Math.floor(bonus*SEASONS[seasonIdx].sunMod);
   sun+=earned;updateHUD();
   $('wPopT').textContent='Wave '+waveNum+' cleared! +'+earned+' ☀';
   $('wPopS').textContent='Season: '+SEASONS[seasonIdx].name;
@@ -1115,7 +1120,9 @@ function applyDmg(en,dmg,slowAdd,rootAdd,slowFactor,stunDur){
     en.stunT=Math.max(en.stunT||0,stunDur);
   }
   if(en.hp<=0&&!en.dead){
-    en.dead=true;score+=en.rwd;sun=Math.min(sun+Math.floor(en.rwd*0.15),999);updateHUD();
+    en.dead=true;score+=en.rwd;// Kill reward: 25% early, scales down to 12% by wave 20
+    var killPct=Math.max(0.12,0.25-waveNum*0.006);
+    sun=Math.min(sun+Math.max(1,Math.floor(en.rwd*killPct)),999);updateHUD();
     spawnParticles(en.x,en.y,en.ecol||'#ef5350',8);
   }
 }
