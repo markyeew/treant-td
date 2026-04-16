@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Treant TD">
 <meta name="theme-color" content="#071407">
 <title>Treant Defense</title>
 <style>
@@ -12,37 +13,39 @@
 html,body{width:100%;height:100%;background:#071407;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;touch-action:manipulation}
 .page{display:none;width:100%;height:100dvh;flex-direction:column;overflow:hidden}
 .page.active{display:flex}
-.pt{padding-top:max(12px,env(safe-area-inset-top))}
-.pb{padding-bottom:max(12px,env(safe-area-inset-bottom))}
-.btn-green{display:block;width:100%;padding:14px;background:#1b5e20;border:none;border-radius:12px;color:#c8e6c9;font-size:16px;font-weight:500;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
-.btn-green:active{background:#2e7d32}
-.btn-outline{display:block;width:100%;padding:13px;background:transparent;border:1.5px solid #2d5a2d;border-radius:12px;color:#81c784;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
-.btn-outline:active{background:#0f2010}
-.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;color:#81c784;font-size:14px;cursor:pointer;font-family:inherit;padding:0;-webkit-tap-highlight-color:transparent}
+.pt{padding-top:max(14px,env(safe-area-inset-top))}
+.pb{padding-bottom:max(14px,env(safe-area-inset-bottom))}
 
 /* START PAGE */
 #startPage{background:#071407;align-items:center;justify-content:space-between}
-.start-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 32px}
-.start-logo{font-size:72px;margin-bottom:8px;line-height:1}
-.start-title{font-size:32px;font-weight:500;color:#c8e6c9;text-align:center}
-.start-sub{font-size:14px;color:#4caf50;text-align:center;font-style:italic}
-.start-btns{width:100%;padding:24px 32px;display:flex;flex-direction:column;gap:12px}
-.start-btns .btn-green{font-size:18px;padding:16px}
-.version{font-size:11px;color:#2d5a2d;text-align:center;margin-top:4px}
+.start-bg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0}
+.start-content{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;height:100%}
+.start-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0 32px}
+.start-logo{font-size:80px;line-height:1;filter:drop-shadow(0 0 20px rgba(76,175,80,0.6))}
+.start-title{font-size:34px;font-weight:700;color:#c8e6c9;text-align:center;letter-spacing:1px;text-shadow:0 0 30px rgba(76,175,80,0.4)}
+.start-sub{font-size:13px;color:#4caf50;text-align:center;font-style:italic;letter-spacing:0.5px}
+.start-btns{width:100%;padding:20px 28px;display:flex;flex-direction:column;gap:10px}
+.btn-primary{display:block;width:100%;padding:15px;background:#1b5e20;border:none;border-radius:14px;color:#c8e6c9;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;letter-spacing:0.3px;border:1px solid #2e7d32}
+.btn-primary:active{background:#2e7d32;transform:scale(0.98)}
+.btn-secondary{display:block;width:100%;padding:13px;background:rgba(255,255,255,0.04);border:1px solid #2d5a2d;border-radius:14px;color:#81c784;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+.btn-secondary:active{background:rgba(255,255,255,0.08)}
+.version{font-size:11px;color:#2d5a2d;text-align:center;margin-top:2px}
 
-/* TREES PAGE */
-#treesPage{background:#071407}
-.trees-header{background:#0a1f0a;padding:12px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a3a1a;flex-shrink:0}
-.trees-header h1{font-size:18px;font-weight:500;color:#c8e6c9}
-.trees-scroll{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;-webkit-overflow-scrolling:touch}
-.tree-card{background:#0a1f0a;border:1px solid #1a3a1a;border-radius:14px;overflow:hidden}
-.tree-card-header{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #1a3a1a}
-.tree-ico{font-size:36px;line-height:1;flex-shrink:0}
-.tree-meta{flex:1}
-.tree-name{font-size:16px;font-weight:500;color:#c8e6c9;margin-bottom:2px}
-.tree-cost{font-size:12px;color:#ffd54f}
-.tree-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
-.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500}
+/* SCROLL PAGES */
+.scroll-header{background:#071407;padding:12px 18px;padding-top:max(14px,env(safe-area-inset-top));display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a3a1a;flex-shrink:0}
+.scroll-header h1{font-size:17px;font-weight:600;color:#c8e6c9}
+.back-btn{display:flex;align-items:center;gap:5px;background:none;border:none;color:#4caf50;font-size:14px;cursor:pointer;font-family:inherit;padding:6px 0;-webkit-tap-highlight-color:transparent}
+.scroll-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
+
+/* CARDS */
+.card{background:#0a1a0a;border:1px solid #1a3a1a;border-radius:16px;overflow:hidden}
+.card-header{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #1a3a1a;background:#0d200d}
+.card-ico{font-size:34px;line-height:1;flex-shrink:0}
+.card-meta{flex:1}
+.card-name{font-size:15px;font-weight:600;color:#c8e6c9;margin-bottom:2px}
+.card-cost{font-size:12px;color:#ffd54f}
+.tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600}
 .tag.ground{background:#1b3a0f;color:#81c784;border:1px solid #2d5a2d}
 .tag.air{background:#1a1040;color:#b39ddb;border:1px solid #4a3a80}
 .tag.boss{background:#3a1010;color:#ef9a9a;border:1px solid #6a2020}
@@ -50,306 +53,423 @@ html,body{width:100%;height:100%;background:#071407;overflow:hidden;font-family:
 .tag.root{background:#0d3a1a;color:#a5d6a7;border:1px solid #1a6030}
 .tag.aoe{background:#2a1a00;color:#ffcc80;border:1px solid #6a4400}
 .tag.all{background:#2a2010;color:#ffd54f;border:1px solid #5a4a20}
-.tree-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.tree-desc{font-size:13px;color:#81c784;line-height:1.6}
-.tree-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat{background:#071407;border-radius:8px;padding:8px 10px}
-.stat-label{font-size:10px;color:#4caf50;margin-bottom:2px}
-.stat-val{font-size:13px;font-weight:500;color:#c8e6c9}
-.tree-upgrade{background:#071407;border-radius:10px;padding:10px 12px}
-.upgrade-title{font-size:11px;color:#ffd54f;margin-bottom:6px;font-weight:500}
-.upgrade-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:4px}
-.upgrade-dot{width:6px;height:6px;border-radius:50%;background:#2e7d32;flex-shrink:0;margin-top:4px}
-.upgrade-text{font-size:12px;color:#a5d6a7;line-height:1.4}
-.tree-synergy{background:#1a1400;border:1px solid #3a2e00;border-radius:10px;padding:10px 12px}
-.synergy-title{font-size:11px;color:#ffd54f;margin-bottom:6px;font-weight:500}
-.synergy-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px}
-.syn-ico{font-size:14px;flex-shrink:0}
+.card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.desc{font-size:13px;color:#81c784;line-height:1.65}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-box{background:#071407;border-radius:10px;padding:8px 10px;border:1px solid #1a3a1a}
+.stat-label{font-size:9px;color:#4caf50;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.5px}
+.stat-val{font-size:13px;font-weight:600;color:#c8e6c9}
+.section-box{background:#071407;border-radius:10px;padding:10px 12px;border:1px solid #1a3a1a}
+.section-title{font-size:10px;color:#ffd54f;margin-bottom:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.row{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:#2e7d32;flex-shrink:0;margin-top:4px}
+.row-text{font-size:12px;color:#a5d6a7;line-height:1.4}
+.syn-box{background:#1a1400;border:1px solid #3a2e00;border-radius:10px;padding:10px 12px}
+.syn-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px}
+.syn-ico{font-size:14px;flex-shrink:0;line-height:1.3}
 .syn-text{font-size:11px;color:#ffe082;line-height:1.4}
-.syn-name{font-weight:500;color:#ffd54f}
-.tree-tip{background:#1a2e10;border-left:3px solid #4caf50;border-radius:0 8px 8px 0;padding:8px 12px}
-.tip-label{font-size:10px;color:#4caf50;margin-bottom:2px;font-weight:500}
+.syn-name{font-weight:600;color:#ffd54f}
+.tip-box{background:#0f2a0f;border-left:3px solid #4caf50;border-radius:0 10px 10px 0;padding:8px 12px}
+.tip-label{font-size:9px;color:#4caf50;margin-bottom:2px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
 .tip-text{font-size:12px;color:#81c784;line-height:1.5}
+
+/* SYNERGY CARDS */
+.syn-card{background:#0a1a0a;border:1px solid #3a2e00;border-radius:16px;overflow:hidden}
+.syn-card-header{background:#1a1400;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #3a2e00}
+.syn-pair{display:flex;align-items:center;gap:4px;font-size:20px}
+.syn-arrow{font-size:13px;color:#ffd54f;font-weight:700}
+.syn-card-title{font-size:14px;font-weight:600;color:#ffd54f}
+.syn-card-body{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.effect-box{background:#071407;border-radius:8px;padding:8px 12px;border:1px solid #2a2000}
+.effect-label{font-size:9px;color:#ffa726;margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.effect-text{font-size:12px;color:#ffe082;line-height:1.4}
+.syn-note{font-size:11px;color:#81c784;font-style:italic}
+.section-label{font-size:11px;font-weight:700;color:#4caf50;padding:4px 2px;letter-spacing:0.8px;text-transform:uppercase}
 
 /* GAME PAGE */
 #gamePage{background:#0d1f0d}
-#hud{background:#071407;padding:6px 12px;padding-top:max(6px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a3a1a;flex-shrink:0;gap:4px;flex-wrap:wrap}
+#hud{background:#071407;padding:5px 12px;padding-top:max(8px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a3a1a;flex-shrink:0;gap:4px;flex-wrap:wrap}
 .hi{display:flex;align-items:center;gap:3px;font-size:11px;color:#a5d6a7}
-.hv{font-size:12px;font-weight:500;color:#fff}
-#seasonTag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;background:#2e7d32;color:#c8e6c9}
-#canvasWrap{flex:1;width:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-#gameCanvas{display:block}
-#towerPanel{background:#071407;border-top:1px solid #1a3a1a;padding:5px 8px;padding-bottom:max(5px,env(safe-area-inset-bottom));flex-shrink:0}
-#swBtn{display:block;width:100%;padding:6px;background:#1b5e20;border:none;border-radius:8px;color:#c8e6c9;font-size:13px;cursor:pointer;font-family:inherit;margin-bottom:4px;-webkit-tap-highlight-color:transparent}
+.hv{font-size:12px;font-weight:600;color:#fff}
+#seasonTag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#2e7d32;color:#c8e6c9}
+#canvasWrap{flex:1;width:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a1a0a}
+#gameCanvas{display:block;image-rendering:pixelated}
+#towerPanel{background:#071407;border-top:1px solid #1a3a1a;padding:5px 8px;padding-bottom:max(6px,env(safe-area-inset-bottom));flex-shrink:0}
+#swBtn{display:block;width:100%;padding:7px;background:#1b5e20;border:1px solid #2e7d32;border-radius:10px;color:#c8e6c9;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:5px;-webkit-tap-highlight-color:transparent}
 #swBtn:active{background:#2e7d32}
 #swBtn:disabled{opacity:0.5;cursor:not-allowed}
-#towerRow{display:flex;gap:3px;justify-content:center}
-.tb{display:flex;flex-direction:column;align-items:center;background:#0f2010;border:1.5px solid #2d5a2d;border-radius:8px;padding:3px 3px;cursor:pointer;flex:1;min-width:0;-webkit-tap-highlight-color:transparent}
+#towerRow{display:flex;gap:4px;justify-content:center}
+.tb{display:flex;flex-direction:column;align-items:center;background:#0f2010;border:1.5px solid #2d5a2d;border-radius:10px;padding:3px 2px;cursor:pointer;flex:1;min-width:0;-webkit-tap-highlight-color:transparent;transition:border-color 0.1s}
 .tb:active{background:#1a3a1a}
-.tb.sel{border-color:#76ff03;background:#143a14}
-.tIco{font-size:17px;line-height:1.1}
-.tNm{font-size:8px;color:#81c784;text-align:center;line-height:1.2}
-.tCt{font-size:8px;color:#ffd54f}
+.tb.sel{border-color:#76ff03;background:#143a14;box-shadow:0 0 8px rgba(118,255,3,0.3)}
+.tIco{font-size:18px;line-height:1.1}
+.tNm{font-size:8px;color:#81c784;text-align:center;line-height:1.2;font-weight:500}
+.tCt{font-size:8px;color:#ffd54f;font-weight:600}
 .tTg{font-size:7px;color:#80cbc4}
-#msgBar{font-size:10px;color:#66bb6a;padding:2px 10px;background:#030f03;min-height:18px;border-top:1px solid #0f2010;text-align:center;flex-shrink:0}
-.overlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:10;align-items:center;justify-content:center}
+#msgBar{font-size:10px;color:#66bb6a;padding:3px 10px;background:#030f03;min-height:20px;border-top:1px solid #0f2010;text-align:center;flex-shrink:0}
+.overlay{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 .overlay.show{display:flex}
-.panel{background:#0a1f0a;border:1.5px solid #388e3c;border-radius:14px;padding:14px;min-width:200px;max-width:260px;text-align:center}
-.panel h3{color:#c8e6c9;font-size:14px;margin-bottom:3px}
-.panel .sub{color:#81c784;font-size:11px;margin-bottom:8px;line-height:1.5;white-space:pre-line}
-.panel .syn-active{color:#ffd54f;font-size:10px;margin-bottom:8px;font-style:italic}
-.pBtn{display:block;width:100%;padding:7px;margin:4px 0;border-radius:8px;border:1px solid #388e3c;background:#143a14;color:#c8e6c9;font-size:12px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+.panel{background:#0a1a0a;border:1.5px solid #2e7d32;border-radius:16px;padding:16px;min-width:210px;max-width:260px;text-align:center;box-shadow:0 4px 30px rgba(0,0,0,0.5)}
+.panel h3{color:#c8e6c9;font-size:15px;font-weight:600;margin-bottom:3px}
+.panel .sub{color:#81c784;font-size:11px;margin-bottom:6px;line-height:1.5;white-space:pre-line}
+.panel .syn-active{color:#ffd54f;font-size:10px;margin-bottom:8px;font-style:italic;padding:4px 8px;background:#1a1400;border-radius:6px}
+.pBtn{display:block;width:100%;padding:8px;margin:4px 0;border-radius:10px;border:1px solid #2e7d32;background:#0f2010;color:#c8e6c9;font-size:13px;cursor:pointer;font-family:inherit;font-weight:500;-webkit-tap-highlight-color:transparent}
 .pBtn:active{background:#1b5e20}
-.pBtn.sell{border-color:#c62828;background:#3a0a0a;color:#ef9a9a}
-.pBtn.cancel{border-color:#444;background:#111;color:#999}
-.popup{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:14px;padding:16px 22px;text-align:center;z-index:20;width:250px}
+.pBtn.sell{border-color:#c62828;background:#1a0505;color:#ef9a9a}
+.pBtn.cancel{border-color:#333;background:#0a0a0a;color:#888}
+.popup{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:16px;padding:18px 22px;text-align:center;z-index:20;width:260px;box-shadow:0 8px 40px rgba(0,0,0,0.6)}
 </style>
+
+<script>
+// Defined in head so onclick attrs work immediately
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+}
+</script>
 </head>
 <body>
 
-<!-- START PAGE -->
+<!-- ══ START PAGE ══ -->
 <div id="startPage" class="page active">
-  <div class="start-top pt">
-    <div class="start-logo">🌳</div>
-    <div class="start-title">Treant Defense</div>
-    <div class="start-sub">Protect the Sacred Seed</div>
-  </div>
-  <div class="start-btns pb">
-    <button class="btn-green" onclick="showPage('gamePage');initGame()">▶ Start Game</button>
-    <button class="btn-outline" onclick="showPage('treesPage')">🌿 Treant Guide</button>
-    <div class="version">v0.2 — synergies update</div>
+  <div class="start-content pt">
+    <div class="start-top">
+      <div class="start-logo">🌳</div>
+      <div class="start-title">Treant Defense</div>
+      <div class="start-sub">Protect the Sacred Seed</div>
+    </div>
+    <div class="start-btns pb">
+      <button class="btn-primary" onclick="showPage('gamePage');initGame()">▶ &nbsp;Start Game</button>
+      <button class="btn-secondary" onclick="showPage('treesPage')">🌿 &nbsp;Treant Guide</button>
+      <button class="btn-secondary" onclick="showPage('synergyPage')">✦ &nbsp;Synergy Guide</button>
+      <div class="version">v0.4 — improved graphics</div>
+    </div>
   </div>
 </div>
 
-<!-- TREES PAGE -->
+<!-- ══ TREANT GUIDE ══ -->
 <div id="treesPage" class="page">
-  <div class="trees-header pt">
+  <div class="scroll-header">
     <button class="back-btn" onclick="showPage('startPage')">&#8592; Back</button>
     <h1>Treant Guide</h1>
   </div>
-  <div class="trees-scroll pb">
+  <div class="scroll-body pb">
 
-    <!-- OAK -->
-    <div class="tree-card">
-      <div class="tree-card-header">
-        <div class="tree-ico">🌳</div>
-        <div class="tree-meta">
-          <div class="tree-name">Oak Treant</div>
-          <div class="tree-cost">☀ 80 sunlight</div>
-          <div class="tree-tags">
-            <span class="tag ground">Ground +50%</span>
-            <span class="tag boss">Boss +25%</span>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-ico">🌳</div>
+        <div class="card-meta">
+          <div class="card-name">Oak Treant</div>
+          <div class="card-cost">☀ 80 sunlight</div>
+          <div class="tags"><span class="tag ground">Ground +50%</span><span class="tag boss">Boss +25%</span></div>
         </div>
       </div>
-      <div class="tree-body">
-        <div class="tree-desc">The ancient guardian of the forest. A sturdy frontline blocker with high HP and powerful strikes. Specialises in crushing heavy ground units. Cannot target flying enemies.</div>
-        <div class="tree-stats">
-          <div class="stat"><div class="stat-label">HP</div><div class="stat-val">220</div></div>
-          <div class="stat"><div class="stat-label">Damage</div><div class="stat-val">25 (+50% vs ground)</div></div>
-          <div class="stat"><div class="stat-label">Range</div><div class="stat-val">2.5 cells</div></div>
-          <div class="stat"><div class="stat-label">Fire Rate</div><div class="stat-val">Fast</div></div>
+      <div class="card-body">
+        <div class="desc">The ancient guardian. A sturdy frontline blocker with high HP and powerful strikes. Specialises in crushing heavy ground units. Cannot target flying enemies.</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">220</div></div>
+          <div class="stat-box"><div class="stat-label">Damage</div><div class="stat-val">25 (+50% gnd)</div></div>
+          <div class="stat-box"><div class="stat-label">Range</div><div class="stat-val">2.5 cells</div></div>
+          <div class="stat-box"><div class="stat-label">Fire Rate</div><div class="stat-val">Fast</div></div>
         </div>
-        <div class="tree-upgrade">
-          <div class="upgrade-title">⬆ Upgrade Path</div>
-          <div class="upgrade-row"><div class="upgrade-dot"></div><div class="upgrade-text">Tier 1 → Ancient Oak (120☀) — +150 HP, +20 DMG</div></div>
-          <div class="upgrade-row"><div class="upgrade-dot" style="background:#ffd54f"></div><div class="upgrade-text">Tier 2 → Ironbark Oak (200☀) — +200 HP, +30 DMG, reflects melee</div></div>
+        <div class="section-box">
+          <div class="section-title">⬆ Upgrade Path</div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 → Ancient Oak (120☀) — +150 HP, +20 DMG</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 → Ironbark Oak (200☀) — +200 HP, +30 DMG, reflects melee</div></div>
         </div>
-        <div class="tree-synergy">
-          <div class="synergy-title">✦ Synergies (place adjacent to activate)</div>
-          <div class="synergy-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Rooted Fortress</span> with Willow — Oak +20% range, Willow slow +0.5s</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Iron Root</span> with Mangrove — both deal +25% ground damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Brotherhood</span> with Elder — Oak +15% HP regen, Elder +10% damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Forest Vanguard</span> with Pine — Oak +10% HP, Pine +10% damage</div></div>
+        <div class="syn-box">
+          <div class="section-title">✦ Synergy Partners</div>
+          <div class="syn-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Rooted Fortress</span> + Willow — Oak +20% range, Willow slow +0.5s</div></div>
+          <div class="syn-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Iron Root</span> + Mangrove — both +25% ground damage</div></div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Brotherhood</span> + Elder — Oak +15% HP regen, Elder +10% dmg</div></div>
+          <div class="syn-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Forest Vanguard</span> + Pine — Oak +10% HP, Pine +10% dmg</div></div>
         </div>
-        <div class="tree-tip">
-          <div class="tip-label">💡 Strategy</div>
-          <div class="tip-text">Place Oaks in chokepoints to block lanes. Surround with Willows for maximum slow+crush synergy. Great against Stone Golems.</div>
-        </div>
+        <div class="tip-box"><div class="tip-label">💡 Strategy</div><div class="tip-text">Place in chokepoints to block lanes. Surround with Willows for max slow+crush. Best against Stone Golems.</div></div>
       </div>
     </div>
 
-    <!-- PINE -->
-    <div class="tree-card">
-      <div class="tree-card-header">
-        <div class="tree-ico">🌲</div>
-        <div class="tree-meta">
-          <div class="tree-name">Pine Treant</div>
-          <div class="tree-cost">☀ 60 sunlight</div>
-          <div class="tree-tags">
-            <span class="tag air">Air +50%</span>
-            <span class="tag ground">Pierce</span>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-ico">🌲</div>
+        <div class="card-meta">
+          <div class="card-name">Pine Treant</div>
+          <div class="card-cost">☀ 60 sunlight</div>
+          <div class="tags"><span class="tag air">Air +50%</span><span class="tag ground">Pierce</span></div>
         </div>
       </div>
-      <div class="tree-body">
-        <div class="tree-desc">A nimble long-range shooter that fires piercing needle bursts. Excels at hitting flying enemies and shredding swarms. Its shots travel through multiple enemies in a line.</div>
-        <div class="tree-stats">
-          <div class="stat"><div class="stat-label">HP</div><div class="stat-val">110</div></div>
-          <div class="stat"><div class="stat-label">Damage</div><div class="stat-val">18 (+50% vs air)</div></div>
-          <div class="stat"><div class="stat-label">Range</div><div class="stat-val">3.5 cells</div></div>
-          <div class="stat"><div class="stat-label">Fire Rate</div><div class="stat-val">Fast</div></div>
+      <div class="card-body">
+        <div class="desc">A nimble long-range shooter firing piercing needle bursts. Excels at hitting flying enemies and shredding swarms. Shots travel through multiple enemies in a line.</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">110</div></div>
+          <div class="stat-box"><div class="stat-label">Damage</div><div class="stat-val">18 (+50% air)</div></div>
+          <div class="stat-box"><div class="stat-label">Range</div><div class="stat-val">3.5 cells</div></div>
+          <div class="stat-box"><div class="stat-label">Fire Rate</div><div class="stat-val">Fast</div></div>
         </div>
-        <div class="tree-upgrade">
-          <div class="upgrade-title">⬆ Upgrade Path</div>
-          <div class="upgrade-row"><div class="upgrade-dot"></div><div class="upgrade-text">Tier 1 → Elder Pine (100☀) — +60 HP, +22 DMG, +range</div></div>
-          <div class="upgrade-row"><div class="upgrade-dot" style="background:#ffd54f"></div><div class="upgrade-text">Tier 2 → Storm Pine (180☀) — lightning chains between enemies</div></div>
+        <div class="section-box">
+          <div class="section-title">⬆ Upgrade Path</div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 → Elder Pine (100☀) — +60 HP, +22 DMG, +range</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 → Storm Pine (180☀) — lightning chains between enemies</div></div>
         </div>
-        <div class="tree-synergy">
-          <div class="synergy-title">✦ Synergies</div>
-          <div class="synergy-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Frosted Needles</span> with Willow — Pine shots apply +1s slow on hit</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Sky Dominion</span> with Elder — both get +20% damage vs air</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Needle Storm</span> with Pine — both get +15% fire rate</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Thorn Wall</span> with Mangrove — Pine +10% fire rate, Mangrove splash +0.3</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Forest Vanguard</span> with Oak — Oak +10% HP, Pine +10% damage</div></div>
+        <div class="syn-box">
+          <div class="section-title">✦ Synergy Partners</div>
+          <div class="syn-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Frosted Needles</span> + Willow — Pine shots apply +1s slow on hit</div></div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Sky Dominion</span> + Elder — both +20% damage vs air</div></div>
+          <div class="syn-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Needle Storm</span> + Pine — both +15% fire rate</div></div>
+          <div class="syn-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Thorn Wall</span> + Mangrove — Pine +10% rate, Mangrove splash +0.3</div></div>
         </div>
-        <div class="tree-tip">
-          <div class="tip-label">💡 Strategy</div>
-          <div class="tip-text">Essential from Wave 17 when Void Drakes appear. Place in back rows for coverage. Pair two Pines side by side for Needle Storm fire rate bonus.</div>
-        </div>
+        <div class="tip-box"><div class="tip-label">💡 Strategy</div><div class="tip-text">Essential from Wave 17 for Void Drakes. Two Pines side by side trigger Needle Storm. Place in back rows for full coverage.</div></div>
       </div>
     </div>
 
-    <!-- WILLOW -->
-    <div class="tree-card">
-      <div class="tree-card-header">
-        <div class="tree-ico">🌿</div>
-        <div class="tree-meta">
-          <div class="tree-name">Willow Treant</div>
-          <div class="tree-cost">☀ 70 sunlight</div>
-          <div class="tree-tags">
-            <span class="tag slow">Slows All in Range</span>
-            <span class="tag aoe">AoE Aura</span>
-            <span class="tag air">Air +30%</span>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-ico">🌿</div>
+        <div class="card-meta">
+          <div class="card-name">Willow Treant</div>
+          <div class="card-cost">☀ 70 sunlight</div>
+          <div class="tags"><span class="tag slow">Slows All</span><span class="tag aoe">AoE Aura</span><span class="tag air">Air +30%</span></div>
         </div>
       </div>
-      <div class="tree-body">
-        <div class="tree-desc">A mystical support tree that radiates a damaging slow aura. Unlike other towers, Willow damages ALL enemies within its range simultaneously every second — including flying units. Low single-target damage but unmatched crowd control.</div>
-        <div class="tree-stats">
-          <div class="stat"><div class="stat-label">HP</div><div class="stat-val">100</div></div>
-          <div class="stat"><div class="stat-label">AoE Damage</div><div class="stat-val">8/sec to ALL in range</div></div>
-          <div class="stat"><div class="stat-label">Range</div><div class="stat-val">2.8 cells (aura)</div></div>
-          <div class="stat"><div class="stat-label">Slow Duration</div><div class="stat-val">1.8 seconds</div></div>
+      <div class="card-body">
+        <div class="desc">Radiates a damaging slow aura that hits ALL enemies in range every second — including flying units. Low single damage but unmatched crowd control coverage.</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">100</div></div>
+          <div class="stat-box"><div class="stat-label">AoE DMG</div><div class="stat-val">8/sec all in range</div></div>
+          <div class="stat-box"><div class="stat-label">Aura Range</div><div class="stat-val">2.8 cells</div></div>
+          <div class="stat-box"><div class="stat-label">Slow Duration</div><div class="stat-val">1.8 seconds</div></div>
         </div>
-        <div class="tree-upgrade">
-          <div class="upgrade-title">⬆ Upgrade Path</div>
-          <div class="upgrade-row"><div class="upgrade-dot"></div><div class="upgrade-text">Tier 1 → Weeping Willow (110☀) — +range, slow duration +0.5s</div></div>
-          <div class="upgrade-row"><div class="upgrade-dot" style="background:#ffd54f"></div><div class="upgrade-text">Tier 2 → Wrath Willow (190☀) — aura damage doubles, heals adjacent towers</div></div>
+        <div class="section-box">
+          <div class="section-title">⬆ Upgrade Path</div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 → Weeping Willow (110☀) — +range, slow +0.5s</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 → Wrath Willow (190☀) — aura damage doubles, heals adjacent towers</div></div>
         </div>
-        <div class="tree-synergy">
-          <div class="synergy-title">✦ Synergies</div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Rooted Fortress</span> with Oak — Oak +20% range, Willow slow +0.5s</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Frosted Needles</span> with Pine — Pine shots apply +1s slow on hit</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Bog Trap</span> with Mangrove — root duration +1s, slow zone deals bonus damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Mist</span> with Elder — Willow aura +1 cell radius, Elder +10% boss damage</div></div>
+        <div class="syn-box">
+          <div class="section-title">✦ Synergy Partners</div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Rooted Fortress</span> + Oak — Oak +20% range, Willow slow +0.5s</div></div>
+          <div class="syn-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Frosted Needles</span> + Pine — Pine shots apply +1s slow on hit</div></div>
+          <div class="syn-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Bog Trap</span> + Mangrove — root +1s, slow zone deals bonus damage</div></div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Mist</span> + Elder — Willow aura +1 cell, Elder +10% boss dmg</div></div>
         </div>
-        <div class="tree-tip">
-          <div class="tip-label">💡 Strategy</div>
-          <div class="tip-text">Willow's AoE aura means it damages every enemy in range every second passively. Place it in the centre of your cluster for maximum coverage. Combine with Mangrove for the devastating Bog Trap.</div>
-        </div>
+        <div class="tip-box"><div class="tip-label">💡 Strategy</div><div class="tip-text">Willow passively damages everything in range every second. Place centrally in clusters. Combine with Mangrove for the devastating Bog Trap.</div></div>
       </div>
     </div>
 
-    <!-- MANGROVE -->
-    <div class="tree-card">
-      <div class="tree-card-header">
-        <div class="tree-ico">🌴</div>
-        <div class="tree-meta">
-          <div class="tree-name">Mangrove Treant</div>
-          <div class="tree-cost">☀ 90 sunlight</div>
-          <div class="tree-tags">
-            <span class="tag ground">Ground +40%</span>
-            <span class="tag root">Roots Enemies</span>
-            <span class="tag aoe">Splash AoE</span>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-ico">🌴</div>
+        <div class="card-meta">
+          <div class="card-name">Mangrove Treant</div>
+          <div class="card-cost">☀ 90 sunlight</div>
+          <div class="tags"><span class="tag ground">Ground +40%</span><span class="tag root">Roots</span><span class="tag aoe">Splash AoE</span></div>
         </div>
       </div>
-      <div class="tree-body">
-        <div class="tree-desc">A tangled, aggressive ground defender. Fires root projectiles that on impact burst outward in a 1.5 cell splash — rooting and damaging all enemies caught in the explosion. Cannot hit flying units.</div>
-        <div class="tree-stats">
-          <div class="stat"><div class="stat-label">HP</div><div class="stat-val">160</div></div>
-          <div class="stat"><div class="stat-label">Damage</div><div class="stat-val">20 + AoE splash</div></div>
-          <div class="stat"><div class="stat-label">Splash Radius</div><div class="stat-val">1.5 cells on impact</div></div>
-          <div class="stat"><div class="stat-label">Root Duration</div><div class="stat-val">2.8 seconds</div></div>
+      <div class="card-body">
+        <div class="desc">Fires root projectiles that burst outward 1.5 cells on impact — rooting and damaging all nearby enemies. Cannot hit flying units.</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">160</div></div>
+          <div class="stat-box"><div class="stat-label">Damage</div><div class="stat-val">20 + splash</div></div>
+          <div class="stat-box"><div class="stat-label">Splash</div><div class="stat-val">1.5 cells radius</div></div>
+          <div class="stat-box"><div class="stat-label">Root Duration</div><div class="stat-val">2.8 seconds</div></div>
         </div>
-        <div class="tree-upgrade">
-          <div class="upgrade-title">⬆ Upgrade Path</div>
-          <div class="upgrade-row"><div class="upgrade-dot"></div><div class="upgrade-text">Tier 1 → Deep Mangrove (130☀) — +100 HP, splash radius +0.5</div></div>
-          <div class="upgrade-row"><div class="upgrade-dot" style="background:#ffd54f"></div><div class="upgrade-text">Tier 2 → Root Fortress (210☀) — roots entire groups, +30 DMG</div></div>
+        <div class="section-box">
+          <div class="section-title">⬆ Upgrade Path</div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 → Deep Mangrove (130☀) — +100 HP, splash +0.5 cells</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 → Root Fortress (210☀) — roots entire groups, +30 DMG</div></div>
         </div>
-        <div class="tree-synergy">
-          <div class="synergy-title">✦ Synergies</div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Iron Root</span> with Oak — both deal +25% ground damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Bog Trap</span> with Willow — root duration +1s, slow zone deals bonus damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Deep Earth</span> with Elder — Mangrove splash +0.5 cells, Elder +15% ground damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Root Network</span> with Mangrove — both get +20% root duration, +10% damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Thorn Wall</span> with Pine — Pine +10% fire rate, Mangrove splash +0.3</div></div>
+        <div class="syn-box">
+          <div class="section-title">✦ Synergy Partners</div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Iron Root</span> + Oak — both +25% ground damage</div></div>
+          <div class="syn-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Bog Trap</span> + Willow — root +1s, slow zone deals bonus damage</div></div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Deep Earth</span> + Elder — splash +0.5, Elder +15% ground dmg</div></div>
+          <div class="syn-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Root Network</span> + Mangrove — both +20% root, +10% dmg</div></div>
         </div>
-        <div class="tree-tip">
-          <div class="tip-label">💡 Strategy</div>
-          <div class="tip-text">Place Mangroves where enemies funnel together — the splash roots the whole group at once. Best against Darkvine Creepers. Double Mangrove (Root Network) is devastating in chokepoints.</div>
-        </div>
+        <div class="tip-box"><div class="tip-label">💡 Strategy</div><div class="tip-text">Place in funnel gaps — splash roots the whole group at once. Double Mangrove (Root Network) is devastating in chokepoints.</div></div>
       </div>
     </div>
 
-    <!-- ELDER -->
-    <div class="tree-card">
-      <div class="tree-card-header">
-        <div class="tree-ico">🌳</div>
-        <div class="tree-meta">
-          <div class="tree-name">Elder Treant</div>
-          <div class="tree-cost">☀ 150 sunlight</div>
-          <div class="tree-tags">
-            <span class="tag all">All Targets</span>
-            <span class="tag boss">Boss +50%</span>
-            <span class="tag air">Air +25%</span>
-          </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-ico">🌳</div>
+        <div class="card-meta">
+          <div class="card-name">Elder Treant</div>
+          <div class="card-cost">☀ 150 sunlight</div>
+          <div class="tags"><span class="tag all">All Targets</span><span class="tag boss">Boss +50%</span><span class="tag air">Air +25%</span></div>
         </div>
       </div>
-      <div class="tree-body">
-        <div class="tree-desc">The most powerful Treant in the grove. A towering ancient that commands both ground and sky. Deals the highest base damage and is the only reliable counter to the Hollow King boss.</div>
-        <div class="tree-stats">
-          <div class="stat"><div class="stat-label">HP</div><div class="stat-val">300</div></div>
-          <div class="stat"><div class="stat-label">Damage</div><div class="stat-val">45 (+50% vs bosses)</div></div>
-          <div class="stat"><div class="stat-label">Range</div><div class="stat-val">3.8 cells</div></div>
-          <div class="stat"><div class="stat-label">Fire Rate</div><div class="stat-val">Slow but heavy</div></div>
+      <div class="card-body">
+        <div class="desc">The most powerful Treant. Commands ground and sky alike. Highest base damage and the only reliable counter to the Hollow King boss.</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">300</div></div>
+          <div class="stat-box"><div class="stat-label">Damage</div><div class="stat-val">45 (+50% boss)</div></div>
+          <div class="stat-box"><div class="stat-label">Range</div><div class="stat-val">3.8 cells</div></div>
+          <div class="stat-box"><div class="stat-label">Fire Rate</div><div class="stat-val">Slow but heavy</div></div>
         </div>
-        <div class="tree-upgrade">
-          <div class="upgrade-title">⬆ Upgrade Path</div>
-          <div class="upgrade-row"><div class="upgrade-dot"></div><div class="upgrade-text">Tier 1 → Elder Lord (200☀) — +200 HP, +35 DMG, +range</div></div>
-          <div class="upgrade-row"><div class="upgrade-dot" style="background:#ffd54f"></div><div class="upgrade-text">Tier 2 → World Tree (350☀) — massive AoE, hits everything on screen</div></div>
+        <div class="section-box">
+          <div class="section-title">⬆ Upgrade Path</div>
+          <div class="row"><div class="dot"></div><div class="row-text">T1 → Elder Lord (200☀) — +200 HP, +35 DMG, +range</div></div>
+          <div class="row"><div class="dot" style="background:#ffd54f"></div><div class="row-text">T2 → World Tree (350☀) — massive AoE, hits everything</div></div>
         </div>
-        <div class="tree-synergy">
-          <div class="synergy-title">✦ Synergies</div>
-          <div class="synergy-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Brotherhood</span> with Oak — Oak +15% HP regen, Elder +10% damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Sky Dominion</span> with Pine — both get +20% damage vs air</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Ancient Mist</span> with Willow — Willow aura +1 cell, Elder +10% boss damage</div></div>
-          <div class="synergy-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Deep Earth</span> with Mangrove — Mangrove splash +0.5, Elder +15% ground damage</div></div>
+        <div class="syn-box">
+          <div class="section-title">✦ Synergy Partners</div>
+          <div class="syn-row"><div class="syn-ico">🌳</div><div class="syn-text"><span class="syn-name">Ancient Brotherhood</span> + Oak — Oak +15% HP regen, Elder +10% dmg</div></div>
+          <div class="syn-row"><div class="syn-ico">🌲</div><div class="syn-text"><span class="syn-name">Sky Dominion</span> + Pine — both +20% damage vs air</div></div>
+          <div class="syn-row"><div class="syn-ico">🌿</div><div class="syn-text"><span class="syn-name">Ancient Mist</span> + Willow — Willow +1 cell aura, Elder +10% boss dmg</div></div>
+          <div class="syn-row"><div class="syn-ico">🌴</div><div class="syn-text"><span class="syn-name">Deep Earth</span> + Mangrove — splash +0.5, Elder +15% ground dmg</div></div>
         </div>
-        <div class="tree-tip">
-          <div class="tip-label">💡 Strategy</div>
-          <div class="tip-text">Place Elder centrally — it benefits from ALL surrounding synergies simultaneously. A single Elder surrounded by Oak, Pine, Willow and Mangrove activates four synergies at once.</div>
-        </div>
+        <div class="tip-box"><div class="tip-label">💡 Strategy</div><div class="tip-text">Place Elder centrally — a single Elder surrounded by all four tree types activates four synergies simultaneously.</div></div>
       </div>
     </div>
-
-    <div style="background:#0a1f0a;border:1px solid #1a3a1a;border-radius:14px;padding:16px;margin-top:2px">
-      <div style="font-size:13px;font-weight:500;color:#ffd54f;margin-bottom:10px">✦ Synergy Rules</div>
-      <div style="font-size:12px;color:#81c784;line-height:1.7">
-        • Any two matching trees placed adjacent (including diagonal) trigger their synergy<br>
-        • Diagonal adjacency gives <strong style="color:#c8e6c9">50%</strong> of the bonus<br>
-        • A tower can hold multiple synergies simultaneously — one per unique neighbour type<br>
-        • Duplicate pairs don't double — Oak next to 2 Pines = Forest Vanguard once<br>
-        • Synergies update live — sell a tower and its bonus disappears instantly<br>
-        • Synergised towers show a <strong style="color:#ffd54f">golden glow</strong> in game
-      </div>
-    </div>
-    <div style="height:8px"></div>
+    <div style="height:6px"></div>
   </div>
 </div>
 
-<!-- GAME PAGE -->
+<!-- ══ SYNERGY GUIDE ══ -->
+<div id="synergyPage" class="page">
+  <div class="scroll-header">
+    <button class="back-btn" onclick="showPage('startPage')">&#8592; Back</button>
+    <h1>Synergy Guide</h1>
+  </div>
+  <div class="scroll-body pb">
+    <div class="card" style="border-color:#2e7d32">
+      <div class="card-body">
+        <div style="font-size:14px;font-weight:600;color:#c8e6c9;margin-bottom:8px">How Synergies Work</div>
+        <div style="font-size:12px;color:#81c784;line-height:1.85">
+          ✦ Place compatible trees <strong style="color:#c8e6c9">adjacent</strong> to activate their synergy<br>
+          ✦ All <strong style="color:#c8e6c9">8 surrounding cells</strong> count — including diagonal<br>
+          ✦ Diagonal gives <strong style="color:#ffd54f">50% of the bonus</strong><br>
+          ✦ A tower can hold <strong style="color:#c8e6c9">multiple synergies</strong> from different neighbours<br>
+          ✦ Duplicate pairs don't stack — Oak next to 2 Pines = once<br>
+          ✦ Synergies update <strong style="color:#c8e6c9">live</strong> when towers are sold<br>
+          ✦ Synergised towers show a <strong style="color:#ffd54f">golden border glow</strong> in game
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Ground Synergies</div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌳</span><span class="syn-arrow">+</span><span>🌿</span></div><div class="syn-card-title">Rooted Fortress</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Oak gets</div><div class="effect-text">+20% attack range — hits enemies further up the lane</div></div>
+        <div class="effect-box"><div class="effect-label">Willow gets</div><div class="effect-text">+0.5s slow duration — enemies stay slowed longer</div></div>
+        <div class="syn-note">Best placed with Oak blocking the lane and Willow directly behind it</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌳</span><span class="syn-arrow">+</span><span>🌴</span></div><div class="syn-card-title">Iron Root</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Both trees get</div><div class="effect-text">+25% ground damage — devastating against heavy ground units like Golems</div></div>
+        <div class="syn-note">A powerful frontline pairing. Placement order doesn't matter</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌿</span><span class="syn-arrow">+</span><span>🌴</span></div><div class="syn-card-title">Bog Trap</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Willow gets</div><div class="effect-text">+1s slow duration — aura slows enemies for even longer</div></div>
+        <div class="effect-box"><div class="effect-label">Mangrove gets</div><div class="effect-text">+1s root duration — enemies are immobilised much longer</div></div>
+        <div class="syn-note">Most powerful crowd-control combo. Enemies caught here are essentially frozen</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌴</span><span class="syn-arrow">+</span><span>🌴</span></div><div class="syn-card-title">Root Network</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Both Mangroves get</div><div class="effect-text">+20% root duration and +10% damage — overlapping splash zones create an inescapable trap</div></div>
+        <div class="syn-note">Place two Mangroves side by side in a chokepoint for maximum effect</div>
+      </div>
+    </div>
+
+    <div class="section-label">Air Synergies</div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌲</span><span class="syn-arrow">+</span><span>🌳</span></div><div class="syn-card-title">Sky Dominion</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Both trees get</div><div class="effect-text">+20% damage vs air enemies — critical for taking down Void Drakes fast</div></div>
+        <div class="syn-note">Essential anti-air pairing from Wave 17 onwards. Place together in back line</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌲</span><span class="syn-arrow">+</span><span>🌿</span></div><div class="syn-card-title">Frosted Needles</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Pine gets</div><div class="effect-text">Each needle shot applies +1s slow — even the fastest enemies get caught</div></div>
+        <div class="syn-note">Great for slowing Sprites and Drakes so other towers can finish them</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌿</span><span class="syn-arrow">+</span><span>🌳</span></div><div class="syn-card-title">Ancient Mist</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Willow gets</div><div class="effect-text">+1 cell aura radius — covers a much larger area of the grid</div></div>
+        <div class="effect-box"><div class="effect-label">Elder gets</div><div class="effect-text">+10% boss damage — more power against the Hollow King</div></div>
+        <div class="syn-note">Expanded Willow aura + Elder range creates a massive kill zone</div>
+      </div>
+    </div>
+
+    <div class="section-label">Fire Rate Synergies</div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌲</span><span class="syn-arrow">+</span><span>🌲</span></div><div class="syn-card-title">Needle Storm</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Both Pines get</div><div class="effect-text">+15% fire rate — needles fly significantly faster from both trees</div></div>
+        <div class="syn-note">Two Pines side by side become a devastating anti-swarm and anti-air corridor</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌲</span><span class="syn-arrow">+</span><span>🌴</span></div><div class="syn-card-title">Thorn Wall</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Pine gets</div><div class="effect-text">+10% fire rate</div></div>
+        <div class="effect-box"><div class="effect-label">Mangrove gets</div><div class="effect-text">+0.3 splash radius — root burst catches more enemies</div></div>
+        <div class="syn-note">Versatile mixed pairing — Pine handles air, Mangrove handles ground clusters</div>
+      </div>
+    </div>
+
+    <div class="section-label">Power Synergies</div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌳</span><span class="syn-arrow">+</span><span>🌲</span></div><div class="syn-card-title">Forest Vanguard</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Oak gets</div><div class="effect-text">+10% max HP — more durable as a frontline blocker</div></div>
+        <div class="effect-box"><div class="effect-label">Pine gets</div><div class="effect-text">+10% damage — stronger shots across its long range</div></div>
+        <div class="syn-note">Classic front/back pairing — Oak guards the lane while Pine snipes from behind</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌳</span><span class="syn-arrow">+</span><span>🌳</span></div><div class="syn-card-title">Ancient Brotherhood</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Oak gets</div><div class="effect-text">+15% HP regen rate — slowly heals itself during and between waves</div></div>
+        <div class="effect-box"><div class="effect-label">Elder gets</div><div class="effect-text">+10% overall damage — boosts all of Elder's already powerful strikes</div></div>
+        <div class="syn-note">Place Oak adjacent to Elder to protect it while Elder buffs Oak's longevity</div>
+      </div>
+    </div>
+
+    <div class="syn-card">
+      <div class="syn-card-header"><div class="syn-pair"><span>🌴</span><span class="syn-arrow">+</span><span>🌳</span></div><div class="syn-card-title">Deep Earth</div></div>
+      <div class="syn-card-body">
+        <div class="effect-box"><div class="effect-label">Mangrove gets</div><div class="effect-text">+0.5 cell splash radius — roots a wider area on impact</div></div>
+        <div class="effect-box"><div class="effect-label">Elder gets</div><div class="effect-text">+15% ground damage — more power against heavy ground enemies</div></div>
+        <div class="syn-note">Elder's raw power combined with Mangrove's crowd control — a late-game staple</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#3a2e00">
+      <div class="card-body">
+        <div style="font-size:13px;font-weight:600;color:#ffd54f;margin-bottom:10px">⚡ Recommended Clusters</div>
+        <div style="font-size:12px;color:#81c784;line-height:1.85;margin-bottom:10px"><strong style="color:#c8e6c9">The Bog Wall</strong> — 🌳 🌿 🌴<br>Oak blocks, Willow slows everything, Mangrove roots the crowd. Three synergies simultaneously.</div>
+        <div style="font-size:12px;color:#81c784;line-height:1.85;margin-bottom:10px"><strong style="color:#c8e6c9">The Sky Fort</strong> — 🌲 🌳 🌲<br>Two Pines flanking an Elder. Needle Storm on both Pines + Sky Dominion on all three. Destroys Void Drakes.</div>
+        <div style="font-size:12px;color:#81c784;line-height:1.85;margin-bottom:10px"><strong style="color:#c8e6c9">The Root Trap</strong> — 🌴 🌿 🌴<br>Two Mangroves flanking a Willow. Root Network + Bog Trap active. Enemies barely move.</div>
+        <div style="font-size:12px;color:#81c784;line-height:1.85"><strong style="color:#c8e6c9">The Elder Core</strong> — 🌳🌲🌿🌴 around Elder<br>Elder in the centre activates Ancient Brotherhood + Sky Dominion + Ancient Mist + Deep Earth simultaneously.</div>
+      </div>
+    </div>
+    <div style="height:6px"></div>
+  </div>
+</div>
+
+<!-- ══ GAME PAGE ══ -->
 <div id="gamePage" class="page">
   <div id="hud">
     <div class="hi">☀<span class="hv" id="sunV">150</span></div>
@@ -364,43 +484,42 @@ html,body{width:100%;height:100%;background:#071407;overflow:hidden;font-family:
       <div class="panel">
         <h3 id="tPopName">Tower</h3>
         <div class="sub" id="tPopSub"></div>
-        <div class="syn-active" id="tPopSyn"></div>
+        <div class="syn-active" id="tPopSyn" style="display:none"></div>
         <button class="pBtn" id="upBtn" onclick="doUpgrade()">Upgrade</button>
         <button class="pBtn sell" onclick="doSell()">Sell (50% refund)</button>
         <button class="pBtn cancel" onclick="closeTPop()">Cancel</button>
       </div>
     </div>
-    <div class="popup" id="wPop" style="background:#071407;border:2px solid #76ff03">
-      <h2 style="color:#76ff03;font-size:17px;margin-bottom:4px" id="wPopT">Wave Clear!</h2>
-      <p style="color:#c8e6c9;font-size:12px;margin-bottom:10px" id="wPopS"></p>
-      <button style="padding:7px 20px;border-radius:8px;border:none;background:#1b5e20;color:#fff;font-size:13px;cursor:pointer;font-family:inherit" onclick="closeWPop()">Next Wave</button>
+    <div class="popup" id="wPop" style="background:#071407;border:2px solid #4caf50">
+      <h2 style="color:#76ff03;font-size:18px;margin-bottom:5px" id="wPopT">Wave Clear!</h2>
+      <p style="color:#c8e6c9;font-size:12px;margin-bottom:12px" id="wPopS"></p>
+      <button style="padding:8px 22px;border-radius:10px;border:none;background:#1b5e20;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit" onclick="closeWPop()">Next Wave</button>
     </div>
-    <div class="popup" id="goPop" style="background:#1a0000;border:2px solid #c62828">
-      <h2 style="color:#ef5350;font-size:19px;margin-bottom:6px">The Seed Falls...</h2>
-      <p style="color:#ffcdd2;font-size:12px;margin-bottom:8px" id="goSub"></p>
-      <button style="padding:8px 0;width:100%;border-radius:8px;border:none;background:#b71c1c;color:#fff;font-size:13px;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="restartGame()">Try Again</button>
-      <button style="padding:8px 0;width:100%;border-radius:8px;border:1px solid #444;background:transparent;color:#aaa;font-size:13px;cursor:pointer;font-family:inherit" onclick="showPage('startPage')">Main Menu</button>
+    <div class="popup" id="goPop" style="background:#1a0505;border:2px solid #c62828">
+      <h2 style="color:#ef5350;font-size:20px;margin-bottom:6px">The Seed Falls...</h2>
+      <p style="color:#ffcdd2;font-size:12px;margin-bottom:10px" id="goSub"></p>
+      <button style="padding:9px 0;width:100%;border-radius:10px;border:none;background:#b71c1c;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px" onclick="restartGame()">Try Again</button>
+      <button style="padding:9px 0;width:100%;border-radius:10px;border:1px solid #444;background:transparent;color:#aaa;font-size:13px;cursor:pointer;font-family:inherit" onclick="showPage('startPage')">Main Menu</button>
     </div>
-    <div class="popup" id="eiPop" style="background:#071407;border:2px solid #e65100;width:260px">
-      <h2 style="color:#ffa726;font-size:14px;margin-bottom:4px" id="eiT">New Enemy!</h2>
-      <div style="font-size:32px;margin:6px 0" id="eiIco">?</div>
-      <p style="color:#ffe0b2;font-size:11px;margin-bottom:3px" id="eiD"></p>
+    <div class="popup" id="eiPop" style="background:#0a1000;border:2px solid #e65100;width:268px">
+      <h2 style="color:#ffa726;font-size:14px;margin-bottom:5px" id="eiT">New Enemy!</h2>
+      <div style="font-size:36px;margin:6px 0;filter:drop-shadow(0 0 8px rgba(255,100,0,0.5))" id="eiIco">?</div>
+      <p style="color:#ffe0b2;font-size:11px;margin-bottom:3px;line-height:1.5" id="eiD"></p>
       <p style="color:#ffcc80;font-style:italic;font-size:10px;margin:5px 0" id="eiQ"></p>
-      <button style="margin-top:8px;padding:6px 18px;border-radius:8px;border:none;background:#e65100;color:#fff;font-size:12px;cursor:pointer;font-family:inherit" onclick="closeEI()">Prepare!</button>
+      <button style="margin-top:8px;padding:7px 20px;border-radius:10px;border:none;background:#e65100;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit" onclick="closeEI()">Prepare!</button>
     </div>
   </div>
   <div id="towerPanel">
-    <button id="swBtn">Start Wave 1</button>
+    <button id="swBtn">▶ Start Wave 1</button>
     <div id="towerRow">
       <div class="tb sel" data-t="oak" onclick="selTower('oak')"><span class="tIco">🌳</span><span class="tNm">Oak</span><span class="tCt">☀80</span><span class="tTg">Gnd+</span></div>
       <div class="tb" data-t="pine" onclick="selTower('pine')"><span class="tIco">🌲</span><span class="tNm">Pine</span><span class="tCt">☀60</span><span class="tTg">Air+</span></div>
       <div class="tb" data-t="willow" onclick="selTower('willow')"><span class="tIco">🌿</span><span class="tNm">Willow</span><span class="tCt">☀70</span><span class="tTg">AoE</span></div>
       <div class="tb" data-t="mangrove" onclick="selTower('mangrove')"><span class="tIco">🌴</span><span class="tNm">Mangrove</span><span class="tCt">☀90</span><span class="tTg">Splash</span></div>
       <div class="tb" data-t="elder" onclick="selTower('elder')"><span class="tIco">🌳</span><span class="tNm">Elder</span><span class="tCt">☀150</span><span class="tTg">All+</span></div>
-      <div class="tb" data-t="none" onclick="selTower('none')" style="border-color:#c62828;max-width:50px">
+      <div class="tb" data-t="none" onclick="selTower('none')" style="border-color:#555;max-width:50px">
         <span class="tIco" style="font-size:14px">🧑‍🌾</span>
-        <span class="tNm" style="color:#ef9a9a;font-size:7px">Manage</span>
-        <span class="tNm" style="color:#ef9a9a;font-size:7px">Tower</span>
+        <span class="tNm" style="color:#aaa;font-size:7px">Manage</span>
       </div>
     </div>
   </div>
@@ -408,39 +527,24 @@ html,body{width:100%;height:100%;background:#071407;overflow:hidden;font-family:
 </div>
 
 <script>
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-const canvas=document.getElementById('gameCanvas');
-const ctx=canvas.getContext('2d');
+// ── DATA ──
 const COLS=9,ROWS=14;
 let CELL=40;
 const SEED_C=Math.floor(COLS/2),SEED_R=ROWS-1;
 
-function resize(){
-  const wrap=document.getElementById('canvasWrap');
-  const w=wrap.clientWidth,h=wrap.clientHeight;
-  CELL=Math.min(Math.floor(w/COLS),Math.floor(h/ROWS));
-  canvas.width=COLS*CELL;canvas.height=ROWS*CELL;
-  canvas.style.width=COLS*CELL+'px';canvas.style.height=ROWS*CELL+'px';
-}
-window.addEventListener('resize',resize);
-
 const SEASONS=[
   {name:'Spring',bg:'#0d1f0d',tag:'#2e7d32',sunMod:1.2,dmgMod:1.0,spdMod:1.0,rangeMod:1.0,heal:true},
-  {name:'Summer',bg:'#1a1a00',tag:'#f57f17',sunMod:1.0,dmgMod:1.15,spdMod:1.0,rangeMod:1.0,heal:false},
+  {name:'Summer',bg:'#1a1500',tag:'#f57f17',sunMod:1.0,dmgMod:1.15,spdMod:1.0,rangeMod:1.0,heal:false},
   {name:'Autumn',bg:'#1a0d00',tag:'#bf360c',sunMod:1.0,dmgMod:1.0,spdMod:1.12,rangeMod:1.0,heal:false},
-  {name:'Winter',bg:'#000d1a',tag:'#1565c0',sunMod:0.5,dmgMod:1.0,spdMod:1.0,rangeMod:0.85,heal:false}
+  {name:'Winter',bg:'#00101a',tag:'#1565c0',sunMod:0.5,dmgMod:1.0,spdMod:1.0,rangeMod:0.85,heal:false}
 ];
 
 const TDEFS={
   oak:     {name:'Oak Treant',  cost:80, hp:220,dmg:25,range:2.5,rate:1.1, col:'#5d4037',canAir:false,gB:1.5,aB:0,  bB:1.25,isAoe:false,splash:0},
-  pine:    {name:'Pine Treant', cost:60, hp:110,dmg:18,range:3.5,rate:0.65,col:'#2e7d32',canAir:true, gB:1.0,aB:1.5,bB:1.0, isAoe:false,splash:0},
-  willow:  {name:'Willow',      cost:70, hp:100,dmg:8, range:2.8,rate:1.0, col:'#558b2f',canAir:true, gB:1.0,aB:1.3,bB:1.0, isAoe:true, splash:0,slow:true},
-  mangrove:{name:'Mangrove',    cost:90, hp:160,dmg:20,range:2.0,rate:1.4, col:'#1b5e20',canAir:false,gB:1.4,aB:0,  bB:1.0, isAoe:false,splash:1.5,root:true},
-  elder:   {name:'Elder Treant',cost:150,hp:300,dmg:45,range:3.8,rate:0.38,col:'#4e342e',canAir:true, gB:1.25,aB:1.25,bB:1.5,isAoe:false,splash:0}
+  pine:    {name:'Pine Treant', cost:60, hp:110,dmg:18,range:3.5,rate:0.65,col:'#1b5e20',canAir:true, gB:1.0,aB:1.5,bB:1.0, isAoe:false,splash:0},
+  willow:  {name:'Willow',      cost:70, hp:100,dmg:8, range:2.8,rate:1.0, col:'#33691e',canAir:true, gB:1.0,aB:1.3,bB:1.0, isAoe:true, splash:0,slow:true},
+  mangrove:{name:'Mangrove',    cost:90, hp:160,dmg:20,range:2.0,rate:1.4, col:'#1a237e',canAir:false,gB:1.4,aB:0,  bB:1.0, isAoe:false,splash:1.5,root:true},
+  elder:   {name:'Elder Treant',cost:150,hp:300,dmg:45,range:3.8,rate:0.38,col:'#4a148c',canAir:true, gB:1.25,aB:1.25,bB:1.5,isAoe:false,splash:0}
 };
 
 const UPS={
@@ -452,128 +556,139 @@ const UPS={
 };
 
 const EDEFS={
-  goblin: {name:'Goblin Woodcutter',e:'👺',hp:80, spd:0.7,rwd:15,dmg:8, isAir:false,isBoss:false,breaker:false,introW:1,intro:{t:'Goblin Woodcutter',d:'Stays in lane — blocked by towers! Oak & Mangrove deal +50% dmg.',q:'"Chop chop! The forest burns!"'}},
-  sprite: {name:'Shadow Sprite',   e:'👻',hp:35, spd:1.8,rwd:20,dmg:3, isAir:false,isBoss:false,breaker:false,introW:3,intro:{t:'Shadow Sprite',d:'Extremely fast. Stays in lane. Pine pierce hits groups!',q:'"You cannot stop what has no shadow..."'}},
-  wraith: {name:'Blightborn Wraith',e:'💀',hp:60,spd:1.1,rwd:30,dmg:5, isAir:false,isBoss:false,breaker:false,introW:6,intro:{t:'Blightborn Wraith',d:'Stays in lane. Willow AoE works best on it.',q:'"The blight comes for every root..."'}},
-  golem:  {name:'Stone Golem',     e:'🗿',hp:400,spd:0.28,rwd:50,dmg:30,isAir:false,isBoss:false,breaker:false,introW:9,intro:{t:'Stone Golem',d:'Massive HP, very slow. Oak +50% crush!',q:'"Nothing grows where I tread."'}},
-  shaman: {name:'Plague Shaman',   e:'🧙',hp:90, spd:0.75,rwd:40,dmg:10,isAir:false,isBoss:false,breaker:false,introW:13,intro:{t:'Plague Shaman',d:'Buffs nearby enemies and rots towers!',q:'"The rot spreads. I am inevitable."'}},
-  creeper:{name:'Darkvine Creeper',e:'🌱',hp:80, spd:0.9,rwd:35,dmg:14,isAir:false,isBoss:false,breaker:true, introW:11,intro:{t:'Darkvine Creeper',d:'IGNORES tower walls — drifts freely!',q:'"Every root belongs to the dark now."'}},
-  drake:  {name:'Void Drake',      e:'🐉',hp:160,spd:1.4,rwd:60,dmg:15,isAir:true, isBoss:false,breaker:true, introW:17,intro:{t:'Void Drake',d:'FLYING — bypasses all ground towers!',q:'"The skies belong to darkness now."'}},
-  king:   {name:'The Hollow King', e:'👑',hp:1500,spd:0.4,rwd:200,dmg:50,isAir:false,isBoss:true,breaker:true, introW:20,intro:{t:'The Hollow King',d:'BOSS — smashes through walls! Elder +50%.',q:'"Your forest ends here, Ancient One."'}}
+  goblin: {name:'Goblin Woodcutter',e:'👺',hp:80, spd:0.7,rwd:15,isAir:false,isBoss:false,breaker:false,introW:1,col:'#558b2f',intro:{t:'Goblin Woodcutter',d:'Stays in lane — blocked by towers! Oak & Mangrove deal +50% dmg.',q:'"Chop chop! The forest burns!"'}},
+  sprite: {name:'Shadow Sprite',   e:'👻',hp:35, spd:1.8,rwd:20,isAir:false,isBoss:false,breaker:false,introW:3,col:'#7e57c2',intro:{t:'Shadow Sprite',d:'Extremely fast. Stays in lane. Pine pierce hits groups!',q:'"You cannot stop what has no shadow..."'}},
+  wraith: {name:'Blightborn Wraith',e:'💀',hp:60, spd:1.1,rwd:30,isAir:false,isBoss:false,breaker:false,introW:6,col:'#546e7a',intro:{t:'Blightborn Wraith',d:'Stays in lane. Willow AoE works best on it.',q:'"The blight comes for every root..."'}},
+  golem:  {name:'Stone Golem',     e:'🗿',hp:400,spd:0.28,rwd:50,isAir:false,isBoss:false,breaker:false,introW:9,col:'#78909c',intro:{t:'Stone Golem',d:'Massive HP, very slow. Oak +50% crush!',q:'"Nothing grows where I tread."'}},
+  shaman: {name:'Plague Shaman',   e:'🧙',hp:90, spd:0.75,rwd:40,isAir:false,isBoss:false,breaker:false,introW:13,col:'#388e3c',intro:{t:'Plague Shaman',d:'Buffs nearby enemies and rots towers!',q:'"The rot spreads. I am inevitable."'}},
+  creeper:{name:'Darkvine Creeper',e:'🌱',hp:80, spd:0.9,rwd:35,isAir:false,isBoss:false,breaker:true, introW:11,col:'#1b5e20',intro:{t:'Darkvine Creeper',d:'IGNORES tower walls — drifts freely!',q:'"Every root belongs to the dark now."'}},
+  drake:  {name:'Void Drake',      e:'🐉',hp:160,spd:1.4,rwd:60,isAir:true, isBoss:false,breaker:true, introW:17,col:'#6a1b9a',intro:{t:'Void Drake',d:'FLYING — bypasses all ground towers!',q:'"The skies belong to darkness now."'}},
+  king:   {name:'The Hollow King', e:'👑',hp:1500,spd:0.4,rwd:200,isAir:false,isBoss:true,breaker:true, introW:20,col:'#b71c1c',intro:{t:'The Hollow King',d:'BOSS — smashes through walls! Elder +50%.',q:'"Your forest ends here, Ancient One."'}}
 };
 
-// ── SYNERGY DEFINITIONS ──
 const SYNERGIES=[
-  {a:'oak',  b:'willow',   name:'Rooted Fortress',    applyA:(t,diag)=>{t.synRangeBonus=(t.synRangeBonus||0)+0.2*(diag?0.5:1);},    applyB:(t,diag)=>{t.synSlowBonus=(t.synSlowBonus||0)+0.5*(diag?0.5:1);}},
-  {a:'oak',  b:'mangrove', name:'Iron Root',           applyA:(t,diag)=>{t.synGBonus=(t.synGBonus||0)+0.25*(diag?0.5:1);},           applyB:(t,diag)=>{t.synGBonus=(t.synGBonus||0)+0.25*(diag?0.5:1);}},
-  {a:'oak',  b:'elder',    name:'Ancient Brotherhood', applyA:(t,diag)=>{t.synHealBonus=(t.synHealBonus||0)+0.15*(diag?0.5:1);},     applyB:(t,diag)=>{t.synDmgBonus=(t.synDmgBonus||0)+0.1*(diag?0.5:1);}},
-  {a:'oak',  b:'pine',     name:'Forest Vanguard',     applyA:(t,diag)=>{t.synHpBonus=(t.synHpBonus||0)+0.1*(diag?0.5:1);},          applyB:(t,diag)=>{t.synDmgBonus=(t.synDmgBonus||0)+0.1*(diag?0.5:1);}},
-  {a:'pine', b:'willow',   name:'Frosted Needles',     applyA:(t,diag)=>{t.synSlowOnHit=(t.synSlowOnHit||0)+1*(diag?0.5:1);},        applyB:()=>{}},
-  {a:'pine', b:'elder',    name:'Sky Dominion',        applyA:(t,diag)=>{t.synAirBonus=(t.synAirBonus||0)+0.2*(diag?0.5:1);},        applyB:(t,diag)=>{t.synAirBonus=(t.synAirBonus||0)+0.2*(diag?0.5:1);}},
-  {a:'pine', b:'pine',     name:'Needle Storm',        applyA:(t,diag)=>{t.synRateBonus=(t.synRateBonus||0)+0.15*(diag?0.5:1);},     applyB:(t,diag)=>{t.synRateBonus=(t.synRateBonus||0)+0.15*(diag?0.5:1);}},
-  {a:'willow',b:'mangrove',name:'Bog Trap',            applyA:(t,diag)=>{t.synSlowBonus=(t.synSlowBonus||0)+1*(diag?0.5:1);},        applyB:(t,diag)=>{t.synRootBonus=(t.synRootBonus||0)+1*(diag?0.5:1);}},
-  {a:'willow',b:'elder',   name:'Ancient Mist',        applyA:(t,diag)=>{t.synRangeBonus=(t.synRangeBonus||0)+1*(diag?0.5:1);},      applyB:(t,diag)=>{t.synBossBonus=(t.synBossBonus||0)+0.1*(diag?0.5:1);}},
-  {a:'mangrove',b:'elder', name:'Deep Earth',          applyA:(t,diag)=>{t.synSplashBonus=(t.synSplashBonus||0)+0.5*(diag?0.5:1);}, applyB:(t,diag)=>{t.synGBonus=(t.synGBonus||0)+0.15*(diag?0.5:1);}},
-  {a:'mangrove',b:'mangrove',name:'Root Network',      applyA:(t,diag)=>{t.synRootBonus=(t.synRootBonus||0)+0.2*(diag?0.5:1);t.synGBonus=(t.synGBonus||0)+0.1*(diag?0.5:1);},applyB:(t,diag)=>{t.synRootBonus=(t.synRootBonus||0)+0.2*(diag?0.5:1);t.synGBonus=(t.synGBonus||0)+0.1*(diag?0.5:1);}},
-  {a:'pine', b:'mangrove', name:'Thorn Wall',          applyA:(t,diag)=>{t.synRateBonus=(t.synRateBonus||0)+0.1*(diag?0.5:1);},      applyB:(t,diag)=>{t.synSplashBonus=(t.synSplashBonus||0)+0.3*(diag?0.5:1);}}
+  {a:'oak',  b:'willow',   name:'Rooted Fortress',   applyA:(t,d)=>{t.synRangeBonus=(t.synRangeBonus||0)+0.2*(d?0.5:1);},   applyB:(t,d)=>{t.synSlowBonus=(t.synSlowBonus||0)+0.5*(d?0.5:1);}},
+  {a:'oak',  b:'mangrove', name:'Iron Root',          applyA:(t,d)=>{t.synGBonus=(t.synGBonus||0)+0.25*(d?0.5:1);},          applyB:(t,d)=>{t.synGBonus=(t.synGBonus||0)+0.25*(d?0.5:1);}},
+  {a:'oak',  b:'elder',    name:'Ancient Brotherhood',applyA:(t,d)=>{t.synHealBonus=(t.synHealBonus||0)+0.15*(d?0.5:1);},    applyB:(t,d)=>{t.synDmgBonus=(t.synDmgBonus||0)+0.1*(d?0.5:1);}},
+  {a:'oak',  b:'pine',     name:'Forest Vanguard',    applyA:(t,d)=>{t.synHpBonus=(t.synHpBonus||0)+0.1*(d?0.5:1);},         applyB:(t,d)=>{t.synDmgBonus=(t.synDmgBonus||0)+0.1*(d?0.5:1);}},
+  {a:'pine', b:'willow',   name:'Frosted Needles',    applyA:(t,d)=>{t.synSlowOnHit=(t.synSlowOnHit||0)+1*(d?0.5:1);},       applyB:()=>{}},
+  {a:'pine', b:'elder',    name:'Sky Dominion',       applyA:(t,d)=>{t.synAirBonus=(t.synAirBonus||0)+0.2*(d?0.5:1);},       applyB:(t,d)=>{t.synAirBonus=(t.synAirBonus||0)+0.2*(d?0.5:1);}},
+  {a:'pine', b:'pine',     name:'Needle Storm',       applyA:(t,d)=>{t.synRateBonus=(t.synRateBonus||0)+0.15*(d?0.5:1);},    applyB:(t,d)=>{t.synRateBonus=(t.synRateBonus||0)+0.15*(d?0.5:1);}},
+  {a:'willow',b:'mangrove',name:'Bog Trap',           applyA:(t,d)=>{t.synSlowBonus=(t.synSlowBonus||0)+1*(d?0.5:1);},       applyB:(t,d)=>{t.synRootBonus=(t.synRootBonus||0)+1*(d?0.5:1);}},
+  {a:'willow',b:'elder',   name:'Ancient Mist',       applyA:(t,d)=>{t.synRangeBonus=(t.synRangeBonus||0)+1*(d?0.5:1);},     applyB:(t,d)=>{t.synBossBonus=(t.synBossBonus||0)+0.1*(d?0.5:1);}},
+  {a:'mangrove',b:'elder', name:'Deep Earth',         applyA:(t,d)=>{t.synSplashBonus=(t.synSplashBonus||0)+0.5*(d?0.5:1);},applyB:(t,d)=>{t.synGBonus=(t.synGBonus||0)+0.15*(d?0.5:1);}},
+  {a:'mangrove',b:'mangrove',name:'Root Network',     applyA:(t,d)=>{t.synRootBonus=(t.synRootBonus||0)+0.2*(d?0.5:1);t.synGBonus=(t.synGBonus||0)+0.1*(d?0.5:1);},applyB:(t,d)=>{t.synRootBonus=(t.synRootBonus||0)+0.2*(d?0.5:1);t.synGBonus=(t.synGBonus||0)+0.1*(d?0.5:1);}},
+  {a:'pine', b:'mangrove', name:'Thorn Wall',         applyA:(t,d)=>{t.synRateBonus=(t.synRateBonus||0)+0.1*(d?0.5:1);},     applyB:(t,d)=>{t.synSplashBonus=(t.synSplashBonus||0)+0.3*(d?0.5:1);}}
 ];
 
-function resetSynergies(t){
-  t.synRangeBonus=0;t.synSlowBonus=0;t.synGBonus=0;t.synHealBonus=0;
-  t.synDmgBonus=0;t.synHpBonus=0;t.synSlowOnHit=0;t.synAirBonus=0;
-  t.synRateBonus=0;t.synRootBonus=0;t.synBossBonus=0;t.synSplashBonus=0;
-  t.synNames=[];t.hasSynergy=false;
-}
+// ── CANVAS ──
+const canvas=document.getElementById('gameCanvas');
+const ctx=canvas.getContext('2d');
 
-function computeSynergies(){
-  towers.forEach(t=>resetSynergies(t));
-  const dirs=[{dc:-1,dr:-1,diag:true},{dc:0,dr:-1,diag:false},{dc:1,dr:-1,diag:true},
-               {dc:-1,dr:0,diag:false},{dc:1,dr:0,diag:false},
-               {dc:-1,dr:1,diag:true},{dc:0,dr:1,diag:false},{dc:1,dr:1,diag:true}];
-  const usedPairs=new Set();
-  towers.forEach(tA=>{
-    dirs.forEach(d=>{
-      const nc=tA.c+d.dc,nr=tA.r+d.dr;
-      const tB=towers.find(t=>t.c===nc&&t.r===nr);
-      if(!tB)return;
-      const pairKey=[tA.type,tB.type,Math.min(tA.c*100+tA.r,tB.c*100+tB.r),Math.max(tA.c*100+tA.r,tB.c*100+tB.r)].join(',');
-      if(usedPairs.has(pairKey))return;
-      usedPairs.add(pairKey);
-      SYNERGIES.forEach(syn=>{
-        if((syn.a===tA.type&&syn.b===tB.type)){
-          syn.applyA(tA,d.diag);syn.applyB(tB,d.diag);
-          if(!tA.synNames.includes(syn.name))tA.synNames.push(syn.name);
-          if(!tB.synNames.includes(syn.name))tB.synNames.push(syn.name);
-          tA.hasSynergy=true;tB.hasSynergy=true;
-        } else if(syn.a===tB.type&&syn.b===tA.type){
-          syn.applyA(tB,d.diag);syn.applyB(tA,d.diag);
-          if(!tB.synNames.includes(syn.name))tB.synNames.push(syn.name);
-          if(!tA.synNames.includes(syn.name))tA.synNames.push(syn.name);
-          tA.hasSynergy=true;tB.hasSynergy=true;
-        }
-      });
-    });
-  });
+function resize(){
+  const wrap=document.getElementById('canvasWrap');
+  const w=wrap.clientWidth,h=wrap.clientHeight;
+  CELL=Math.min(Math.floor(w/COLS),Math.floor(h/ROWS));
+  canvas.width=COLS*CELL;canvas.height=ROWS*CELL;
+  canvas.style.width=COLS*CELL+'px';canvas.style.height=ROWS*CELL+'px';
 }
+window.addEventListener('resize',resize);
 
-function getEffectiveStats(t,S){
-  const rangeMod=S.rangeMod;
-  const effRange=(t.range+(t.synRangeBonus||0))*CELL*rangeMod;
-  const effRate=t.rate*(1+(t.synRateBonus||0));
-  const effSplash=(t.splash||0)+(t.synSplashBonus||0);
-  return{effRange,effRate,effSplash};
-}
-
+// ── STATE ──
 let sun,lives,waveNum,score,seasonIdx;
-let towers,enemies,projs,aoeEffects;
+let towers,enemies,projs,aoeEffects,particles;
 let selType,selTowerIdx;
 let waveActive,waveClearPending,gameOverFlag;
 let totalToSpawn,spawnedCount,sunTimer,lastTime;
 let introsShown,pendingCb,gameLoopRunning=false;
 
 const $=id=>document.getElementById(id);
-const msg=t=>{$('msgBar').textContent=t};
+const msg=t=>{$('msgBar').textContent=t;};
 const isBlocked=(c,r)=>towers.some(t=>t.c===c&&t.r===r);
 
 function updateHUD(){
-  $('sunV').textContent=Math.floor(sun);
-  $('livV').textContent=lives;
-  $('wavV').textContent=waveNum;
-  $('scrV').textContent=score;
-  const s=SEASONS[seasonIdx];
-  $('seasonTag').textContent=s.name;
-  $('seasonTag').style.background=s.tag;
+  $('sunV').textContent=Math.floor(sun);$('livV').textContent=lives;
+  $('wavV').textContent=waveNum;$('scrV').textContent=score;
+  const s=SEASONS[seasonIdx];$('seasonTag').textContent=s.name;$('seasonTag').style.background=s.tag;
 }
 
+// ── SYNERGIES ──
+function resetSyn(t){
+  t.synRangeBonus=0;t.synSlowBonus=0;t.synGBonus=0;t.synHealBonus=0;
+  t.synDmgBonus=0;t.synHpBonus=0;t.synSlowOnHit=0;t.synAirBonus=0;
+  t.synRateBonus=0;t.synRootBonus=0;t.synBossBonus=0;t.synSplashBonus=0;
+  t.synNames=[];t.hasSynergy=false;
+}
+function computeSynergies(){
+  towers.forEach(t=>resetSyn(t));
+  var dirs=[{dc:-1,dr:-1,d:true},{dc:0,dr:-1,d:false},{dc:1,dr:-1,d:true},
+            {dc:-1,dr:0,d:false},{dc:1,dr:0,d:false},
+            {dc:-1,dr:1,d:true},{dc:0,dr:1,d:false},{dc:1,dr:1,d:true}];
+  var used=new Set();
+  towers.forEach(function(tA){
+    dirs.forEach(function(dir){
+      var nc=tA.c+dir.dc,nr=tA.r+dir.dr;
+      var tB=towers.find(function(t){return t.c===nc&&t.r===nr;});
+      if(!tB)return;
+      var pk=[tA.type,tB.type,Math.min(tA.c*100+tA.r,tB.c*100+tB.r),Math.max(tA.c*100+tA.r,tB.c*100+tB.r)].join(',');
+      if(used.has(pk))return;
+      used.add(pk);
+      SYNERGIES.forEach(function(syn){
+        if(syn.a===tA.type&&syn.b===tB.type){
+          syn.applyA(tA,dir.d);syn.applyB(tB,dir.d);
+          if(!tA.synNames.includes(syn.name))tA.synNames.push(syn.name);
+          if(!tB.synNames.includes(syn.name))tB.synNames.push(syn.name);
+          tA.hasSynergy=true;tB.hasSynergy=true;
+        } else if(syn.a===tB.type&&syn.b===tA.type){
+          syn.applyA(tB,dir.d);syn.applyB(tA,dir.d);
+          if(!tB.synNames.includes(syn.name))tB.synNames.push(syn.name);
+          if(!tA.synNames.includes(syn.name))tA.synNames.push(syn.name);
+          tB.hasSynergy=true;tA.hasSynergy=true;
+        }
+      });
+    });
+  });
+}
+function getEffStats(t,S){
+  return{
+    effRange:(t.range+(t.synRangeBonus||0))*CELL*S.rangeMod,
+    effRate:t.rate*(1+(t.synRateBonus||0)),
+    effSplash:(t.splash||0)+(t.synSplashBonus||0)
+  };
+}
+
+// ── INIT ──
 function initGame(){
   sun=150;lives=3;waveNum=0;score=0;seasonIdx=0;
-  towers=[];enemies=[];projs=[];aoeEffects=[];
+  towers=[];enemies=[];projs=[];aoeEffects=[];particles=[];
   selType='oak';selTowerIdx=-1;
   waveActive=false;waveClearPending=false;gameOverFlag=false;
   totalToSpawn=0;spawnedCount=0;sunTimer=0;lastTime=0;
   introsShown=new Set();pendingCb=null;
-  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('sel'));
-  const el=document.querySelector('[data-t="oak"]');if(el)el.classList.add('sel');
+  document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('sel');});
+  var el=document.querySelector('[data-t="oak"]');if(el)el.classList.add('sel');
   $('wPop').style.display='none';$('goPop').style.display='none';
   $('eiPop').style.display='none';$('tPopOv').classList.remove('show');
-  $('swBtn').disabled=false;$('swBtn').textContent='Start Wave 1';
+  $('swBtn').disabled=false;$('swBtn').textContent='▶ Start Wave 1';
   updateHUD();msg('Select a tower and tap any cell to place it!');
-  setTimeout(()=>{resize();if(!gameLoopRunning){gameLoopRunning=true;requestAnimationFrame(loop);}},100);
+  setTimeout(function(){resize();if(!gameLoopRunning){gameLoopRunning=true;requestAnimationFrame(loop);}},100);
 }
 
+// ── TOWER SELECTION ──
 function selTower(t){
   selType=t;closeTPop();
-  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('sel'));
-  const el=document.querySelector('[data-t="'+t+'"]');if(el)el.classList.add('sel');
-  const d=TDEFS[t];
+  document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('sel');});
+  var el=document.querySelector('[data-t="'+t+'"]');if(el)el.classList.add('sel');
+  var d=TDEFS[t];
   if(d)msg('Placing '+d.name+' ('+d.cost+' sun) — tap any empty cell');
   else msg('Tap any placed tower to upgrade or sell it.');
 }
 
+// ── INPUT ──
 function getPos(e){
-  const rect=canvas.getBoundingClientRect();
-  const sx=canvas.width/rect.width,sy=canvas.height/rect.height;
-  let cx,cy;
+  var rect=canvas.getBoundingClientRect();
+  var sx=canvas.width/rect.width,sy=canvas.height/rect.height;
+  var cx,cy;
   if(e.touches){cx=(e.touches[0].clientX-rect.left)*sx;cy=(e.touches[0].clientY-rect.top)*sy;}
   else{cx=(e.clientX-rect.left)*sx;cy=(e.clientY-rect.top)*sy;}
   return{c:Math.floor(cx/CELL),r:Math.floor(cy/CELL)};
@@ -583,73 +698,70 @@ function onTap(e){
   e.preventDefault();
   if(gameOverFlag||waveClearPending)return;
   if(!document.getElementById('gamePage').classList.contains('active'))return;
-  const{c,r}=getPos(e);
+  var pos=getPos(e);var c=pos.c,r=pos.r;
   if(c<0||c>=COLS||r<0||r>=ROWS)return;
   if(r===SEED_R&&c===SEED_C)return;
-  const ti=towers.findIndex(t=>t.c===c&&t.r===r);
+  var ti=towers.findIndex(function(t){return t.c===c&&t.r===r;});
   if(ti!==-1){openTPop(ti);return;}
   if(!selType||selType==='none')return;
-  const def=TDEFS[selType];if(!def)return;
-  if(sun<def.cost){msg('Need '+def.cost+' sunlight! Have '+Math.floor(sun));return;}
+  var def=TDEFS[selType];if(!def)return;
+  if(sun<def.cost){msg('Need '+def.cost+' sunlight!');return;}
   sun-=def.cost;
-  towers.push({c,r,type:selType,name:def.name,col:def.col,
+  towers.push({c:c,r:r,type:selType,name:def.name,col:def.col,
     hp:def.hp,maxHp:def.hp,dmg:def.dmg,range:def.range,rate:def.rate,
     canAir:def.canAir,gB:def.gB,aB:def.aB,bB:def.bB,
-    slow:def.slow||false,root:def.root||false,
-    isAoe:def.isAoe||false,splash:def.splash||0,
+    slow:def.slow||false,root:def.root||false,isAoe:def.isAoe||false,splash:def.splash||0,
     tier:0,totalSpent:def.cost,cooldown:0,aoeCooldown:0});
-  computeSynergies();
-  updateHUD();msg(def.name+' planted!');
+  computeSynergies();updateHUD();msg(def.name+' planted!');
+  spawnParticles((c+0.5)*CELL,(r+0.5)*CELL,'#76ff03',6);
 }
-
 canvas.addEventListener('click',onTap);
 canvas.addEventListener('touchstart',onTap,{passive:false});
 
+// ── TOWER PANEL ──
 function openTPop(idx){
-  selTowerIdx=idx;const t=towers[idx];
+  selTowerIdx=idx;var t=towers[idx];
   $('tPopName').textContent=t.name+' (Tier '+t.tier+')';
   $('tPopSub').textContent='HP: '+Math.round(t.hp)+'/'+t.maxHp+'\nDMG: '+Math.round(t.dmg)+' | Range: '+t.range.toFixed(1);
-  const synEl=$('tPopSyn');
-  if(t.synNames&&t.synNames.length>0){
-    synEl.textContent='✦ Active: '+t.synNames.join(', ');
-    synEl.style.display='block';
-  } else {
-    synEl.style.display='none';
-  }
-  const up=UPS[t.type]?.[t.tier];const ub=$('upBtn');
-  if(up&&t.tier<2){ub.textContent='→ '+up.name+' ('+up.cost+' sun)';ub.disabled=false;ub.style.opacity='1';}
-  else{ub.textContent='Already at max tier';ub.disabled=true;ub.style.opacity='0.4';}
+  var synEl=$('tPopSyn');
+  if(t.synNames&&t.synNames.length>0){synEl.textContent='✦ '+t.synNames.join(' · ');synEl.style.display='block';}
+  else synEl.style.display='none';
+  var up=UPS[t.type]?.[t.tier];var ub=$('upBtn');
+  if(up&&t.tier<2){ub.textContent='⬆ '+up.name+' ('+up.cost+' sun)';ub.disabled=false;ub.style.opacity='1';}
+  else{ub.textContent='Max tier reached';ub.disabled=true;ub.style.opacity='0.4';}
   $('tPopOv').classList.add('show');
 }
 function closeTPop(){$('tPopOv').classList.remove('show');selTowerIdx=-1;}
 function doUpgrade(){
-  if(selTowerIdx<0)return;const t=towers[selTowerIdx];
-  const up=UPS[t.type]?.[t.tier];if(!up){closeTPop();return;}
+  if(selTowerIdx<0)return;var t=towers[selTowerIdx];
+  var up=UPS[t.type]?.[t.tier];if(!up){closeTPop();return;}
   if(sun<up.cost){msg('Need '+up.cost+' sunlight!');closeTPop();return;}
-  sun-=up.cost;t.tier++;
-  t.hp=Math.min(t.hp+up.hpB,t.maxHp+up.hpB);t.maxHp+=up.hpB;
+  sun-=up.cost;t.tier++;t.hp=Math.min(t.hp+up.hpB,t.maxHp+up.hpB);t.maxHp+=up.hpB;
   t.dmg+=up.dmgB;t.range+=up.rngB;t.name=up.name;t.totalSpent+=up.cost;
   if(up.splashB)t.splash+=up.splashB;
   computeSynergies();updateHUD();closeTPop();msg(t.name+' upgraded!');
+  spawnParticles((towers[selTowerIdx<towers.length?selTowerIdx:0].c+0.5)*CELL,(towers[selTowerIdx<towers.length?selTowerIdx:0].r+0.5)*CELL,'#ffd54f',8);
 }
 function doSell(){
-  if(selTowerIdx<0)return;const t=towers[selTowerIdx];
-  const ref=Math.floor(t.totalSpent*0.5);sun+=ref;
-  towers.splice(selTowerIdx,1);computeSynergies();
-  updateHUD();closeTPop();msg('Sold for '+ref+' sunlight.');
+  if(selTowerIdx<0)return;var t=towers[selTowerIdx];
+  var ref=Math.floor(t.totalSpent*0.5);sun+=ref;
+  spawnParticles((t.c+0.5)*CELL,(t.r+0.5)*CELL,'#ef9a9a',5);
+  towers.splice(selTowerIdx,1);computeSynergies();updateHUD();closeTPop();msg('Sold for '+ref+' sunlight.');
 }
 
+// ── ENEMY INTRO ──
 function showEI(key,cb){
-  const d=EDEFS[key];if(!d){cb();return;}
+  var d=EDEFS[key];if(!d){cb();return;}
   $('eiT').textContent='New Enemy: '+d.intro.t;
   $('eiIco').textContent=d.e;$('eiD').textContent=d.intro.d;$('eiQ').textContent=d.intro.q;
   $('eiPop').style.display='block';pendingCb=cb;
 }
 function closeEI(){$('eiPop').style.display='none';if(pendingCb){pendingCb();pendingCb=null;}}
 
+// ── WAVES ──
 function buildWaveList(w){
-  const list=[];const count=6+w*2;
-  for(let i=0;i<count;i++){
+  var list=[];var count=6+w*2;
+  for(var i=0;i<count;i++){
     if(w>=20&&i===0){list.push('king');continue;}
     if(w>=17&&i%6===0){list.push('drake');continue;}
     if(w>=13&&i%7===0){list.push('shaman');continue;}
@@ -661,30 +773,28 @@ function buildWaveList(w){
   }
   return list;
 }
-
 function startWave(){
   if(waveActive||waveClearPending||gameOverFlag)return;
   waveNum++;
   if(waveNum%10===0){seasonIdx=(seasonIdx+1)%4;msg('Season changed to '+SEASONS[seasonIdx].name+'!');}
-  updateHUD();
-  $('swBtn').disabled=true;$('swBtn').textContent='Wave '+waveNum+' in progress...';
-  const list=buildWaveList(waveNum);
-  totalToSpawn=list.length;spawnedCount=0;enemies=[];projs=[];aoeEffects=[];waveActive=true;waveClearPending=false;
-  const newIntros=[];
-  list.forEach(k=>{const d=EDEFS[k];if(d&&d.introW===waveNum&&!introsShown.has(k)){newIntros.push(k);introsShown.add(k);}});
-  const doSpawn=()=>doSpawnList(list);
-  if(newIntros.length>0)showEI(newIntros[0],doSpawn);else doSpawn();
+  updateHUD();$('swBtn').disabled=true;$('swBtn').textContent='Wave '+waveNum+' in progress...';
+  var list=buildWaveList(waveNum);
+  totalToSpawn=list.length;spawnedCount=0;enemies=[];projs=[];aoeEffects=[];particles=[];waveActive=true;waveClearPending=false;
+  var ni=[];
+  list.forEach(function(k){var d=EDEFS[k];if(d&&d.introW===waveNum&&!introsShown.has(k)){ni.push(k);introsShown.add(k);}});
+  var doSpawn=function(){doSpawnList(list);};
+  if(ni.length>0)showEI(ni[0],doSpawn);else doSpawn();
 }
 function doSpawnList(list){
-  list.forEach((k,i)=>{setTimeout(()=>{if(!waveActive)return;spawnEnemy(k);spawnedCount++;},i*500);});
+  list.forEach(function(k,i){setTimeout(function(){if(!waveActive)return;spawnEnemy(k);spawnedCount++;},i*500);});
 }
 function spawnEnemy(key){
-  const def=EDEFS[key];if(!def)return;
-  const sm=SEASONS[seasonIdx].spdMod;
-  const scaledHp=def.hp*(1+waveNum*0.1);
-  const col=Math.floor(Math.random()*COLS);
-  enemies.push({key,e:def.e,col:def.col,name:def.name,
-    hp:scaledHp,maxHp:scaledHp,spd:def.spd*sm,rwd:def.rwd,dmg:def.dmg,
+  var def=EDEFS[key];if(!def)return;
+  var sm=SEASONS[seasonIdx].spdMod;
+  var scaledHp=def.hp*(1+waveNum*0.1);
+  var col=Math.floor(Math.random()*COLS);
+  enemies.push({key:key,e:def.e,ecol:def.col,name:def.name,
+    hp:scaledHp,maxHp:scaledHp,spd:def.spd*sm,rwd:def.rwd,
     isAir:def.isAir,isBoss:def.isBoss,breaker:def.breaker,
     laneC:col,x:(col+0.5)*CELL,y:-CELL*0.5,
     targetX:(col+0.5)*CELL,sliding:false,slowT:0,dead:false,reached:false});
@@ -692,40 +802,49 @@ function spawnEnemy(key){
 function onWaveComplete(){
   if(waveClearPending||gameOverFlag)return;
   waveClearPending=true;waveActive=false;
-  const bonus=25+waveNum*10;const earned=Math.floor(bonus*SEASONS[seasonIdx].sunMod);
+  var bonus=25+waveNum*10;var earned=Math.floor(bonus*SEASONS[seasonIdx].sunMod);
   sun+=earned;updateHUD();
   $('wPopT').textContent='Wave '+waveNum+' cleared!';
-  $('wPopS').textContent='+'+earned+' sunlight | Season: '+SEASONS[seasonIdx].name;
+  $('wPopS').textContent='+'+earned+' sunlight earned | Season: '+SEASONS[seasonIdx].name;
   $('wPop').style.display='block';
 }
 function closeWPop(){
   $('wPop').style.display='none';waveClearPending=false;
-  $('swBtn').disabled=false;$('swBtn').textContent='Start Wave '+(waveNum+1);
+  $('swBtn').disabled=false;$('swBtn').textContent='▶ Start Wave '+(waveNum+1);
   msg('Adjust towers, then start the next wave!');
 }
 function triggerGameOver(){
   if(gameOverFlag)return;gameOverFlag=true;waveActive=false;
-  $('goSub').textContent='Wave: '+waveNum+' | Score: '+score;
-  $('goPop').style.display='block';
+  $('goSub').textContent='Wave: '+waveNum+' | Score: '+score;$('goPop').style.display='block';
 }
 function restartGame(){$('goPop').style.display='none';initGame();}
-$('swBtn').addEventListener('click',()=>{if(!waveActive&&!waveClearPending&&!gameOverFlag)startWave();});
+$('swBtn').addEventListener('click',function(){if(!waveActive&&!waveClearPending&&!gameOverFlag)startWave();});
 
+// ── PARTICLES ──
+function spawnParticles(x,y,col,count){
+  for(var i=0;i<count;i++){
+    var angle=Math.random()*Math.PI*2;
+    var speed=30+Math.random()*60;
+    particles.push({x:x,y:y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,col:col,life:0.6,maxLife:0.6,size:2+Math.random()*3});
+  }
+}
+
+// ── MOVEMENT ──
 function moveEnemy(en,dt){
-  const spd=en.spd*CELL*dt;
+  var spd=en.spd*CELL*dt;
   if(en.isAir){en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;return;}
   if(en.breaker){en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;return;}
   if(en.sliding){
-    const dx=en.targetX-en.x;
+    var dx=en.targetX-en.x;
     if(Math.abs(dx)<=spd){en.x=en.targetX;en.laneC=Math.round((en.targetX-CELL/2)/CELL);en.sliding=false;}
     else en.x+=Math.sign(dx)*spd;
     return;
   }
-  const curC=Math.round((en.x-CELL/2)/CELL);
-  const nextR=Math.floor(en.y/CELL)+1;
+  var curC=Math.round((en.x-CELL/2)/CELL);
+  var nextR=Math.floor(en.y/CELL)+1;
   if(nextR<ROWS&&isBlocked(curC,nextR)){
-    for(let d=1;d<COLS;d++){
-      const tL=curC-d,tR=curC+d;
+    for(var d=1;d<COLS;d++){
+      var tL=curC-d,tR=curC+d;
       if(tL>=0&&!isBlocked(tL,nextR)){en.targetX=(tL+0.5)*CELL;en.sliding=true;return;}
       if(tR<COLS&&!isBlocked(tR,nextR)){en.targetX=(tR+0.5)*CELL;en.sliding=true;return;}
     }
@@ -734,230 +853,350 @@ function moveEnemy(en,dt){
   en.y+=spd;if(en.y>=ROWS*CELL)en.reached=true;
 }
 
-function applyDamage(en,dmg,slowAdd,rootAdd){
+function applyDmg(en,dmg,slowAdd,rootAdd){
   en.hp-=dmg;
   if(slowAdd>0)en.slowT=Math.max(en.slowT,slowAdd);
   if(rootAdd>0)en.slowT=Math.max(en.slowT,rootAdd);
   if(en.hp<=0&&!en.dead){
     en.dead=true;score+=en.rwd;sun=Math.min(sun+Math.floor(en.rwd*0.3),999);updateHUD();
+    spawnParticles(en.x,en.y,en.ecol||'#ef5350',8);
   }
 }
 
+// ── UPDATE ──
 function update(dt){
   if(gameOverFlag)return;
-  const S=SEASONS[seasonIdx];
+  var S=SEASONS[seasonIdx];
   sunTimer+=dt;
-  if(sunTimer>=1){sunTimer=0;const r=S.sunMod>=1.2?1.5:S.sunMod<=0.5?0.5:1;sun=Math.min(sun+r,999);updateHUD();}
-  if(S.heal)towers.forEach(t=>{t.hp=Math.min(t.hp+0.3*dt*60,t.maxHp);});
+  if(sunTimer>=1){sunTimer=0;var r=S.sunMod>=1.2?1.5:S.sunMod<=0.5?0.5:1;sun=Math.min(sun+r,999);updateHUD();}
+  if(S.heal)towers.forEach(function(t){t.hp=Math.min(t.hp+0.3*dt*60,t.maxHp);});
+  towers.forEach(function(t){if(t.synHealBonus>0)t.hp=Math.min(t.hp+t.synHealBonus*0.5*dt*60,t.maxHp);});
 
-  // synergy HP regen bonus
-  towers.forEach(t=>{
-    if(t.synHealBonus>0)t.hp=Math.min(t.hp+t.synHealBonus*0.5*dt*60,t.maxHp);
-  });
-
-  for(let i=enemies.length-1;i>=0;i--){
-    const en=enemies[i];if(en.dead||en.reached)continue;
+  for(var i=enemies.length-1;i>=0;i--){
+    var en=enemies[i];if(en.dead||en.reached)continue;
     if(en.slowT>0){en.slowT-=dt;continue;}
     moveEnemy(en,dt);
     if(en.reached){lives=Math.max(0,lives-1);updateHUD();if(lives<=0){triggerGameOver();return;}}
   }
 
-  const dm=S.dmgMod;
-  towers.forEach(t=>{
-    const{effRange,effRate,effSplash}=getEffectiveStats(t,S);
-    const tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2;
-
-    // WILLOW: AoE aura — damages all enemies in range every second
+  var dm=S.dmgMod;
+  towers.forEach(function(t){
+    var es=getEffStats(t,S);
+    var tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2;
     if(t.isAoe){
       t.aoeCooldown=Math.max(0,(t.aoeCooldown||0)-dt);
       if(t.aoeCooldown<=0){
         t.aoeCooldown=1.0;
-        const slowDur=1.8+(t.synSlowBonus||0);
-        let hit=false;
-        enemies.forEach(en=>{
+        var slowDur=1.8+(t.synSlowBonus||0);
+        var hit=false;
+        enemies.forEach(function(en){
           if(en.dead||en.reached)return;
           if(en.isAir&&!t.canAir)return;
-          const dx=en.x-tx,dy=en.y-ty;
-          if(Math.sqrt(dx*dx+dy*dy)<=effRange){
-            let dmg=t.dmg*dm;
-            if(en.isBoss)dmg*=(t.bB+(t.synBossBonus||0));
-            else if(en.isAir)dmg*=t.aB;
-            else dmg*=(t.gB+(t.synGBonus||0));
-            applyDamage(en,dmg,slowDur,0);
-            hit=true;
+          var dx=en.x-tx,dy=en.y-ty;
+          if(Math.sqrt(dx*dx+dy*dy)<=es.effRange){
+            var d2=t.dmg*dm*(1+(t.synDmgBonus||0));
+            if(en.isBoss)d2*=(t.bB+(t.synBossBonus||0));
+            else if(en.isAir)d2*=t.aB;
+            else d2*=(t.gB+(t.synGBonus||0));
+            applyDmg(en,d2,slowDur,0);hit=true;
           }
         });
-        if(hit)aoeEffects.push({x:tx,y:ty,r:effRange,life:0.4,maxLife:0.4,col:'rgba(100,200,80,'});
+        if(hit)aoeEffects.push({x:tx,y:ty,r:es.effRange,life:0.5,maxLife:0.5,type:'willow'});
       }
       return;
     }
-
-    // Standard projectile towers
-    t.cooldown=Math.max(0,t.cooldown-dt);
-    if(t.cooldown>0)return;
-    let target=null,bestY=-Infinity;
-    enemies.forEach(en=>{
-      if(en.dead||en.reached)return;
-      if(en.isAir&&!t.canAir)return;
-      const dx=en.x-tx,dy=en.y-ty;
-      if(Math.sqrt(dx*dx+dy*dy)<=effRange&&en.y>bestY){bestY=en.y;target=en;}
+    t.cooldown=Math.max(0,t.cooldown-dt);if(t.cooldown>0)return;
+    var target=null,bestY=-Infinity;
+    enemies.forEach(function(en){
+      if(en.dead||en.reached)return;if(en.isAir&&!t.canAir)return;
+      var dx=en.x-tx,dy=en.y-ty;
+      if(Math.sqrt(dx*dx+dy*dy)<=es.effRange&&en.y>bestY){bestY=en.y;target=en;}
     });
     if(!target)return;
-    t.cooldown=1/effRate;
-    const dx=target.x-tx,dy=target.y-ty,len=Math.sqrt(dx*dx+dy*dy)||1;
-    const slowExtra=t.synSlowOnHit||0;
-    projs.push({x:tx,y:ty,vx:dx/len*380,vy:dy/len*380,
-      dmg:t.dmg*dm,target,col:t.col,
-      slow:t.slow||false,root:t.root||false,
-      slowExtra,splash:effSplash,
-      gB:t.gB+(t.synGBonus||0),aB:t.aB+(t.synAirBonus||0),
-      bB:t.bB+(t.synBossBonus||0),
-      done:false});
+    t.cooldown=1/es.effRate;
+    var dx2=target.x-tx,dy2=target.y-ty,len=Math.sqrt(dx2*dx2+dy2*dy2)||1;
+    projs.push({x:tx,y:ty,vx:dx2/len*400,vy:dy2/len*400,
+      dmg:t.dmg*dm*(1+(t.synDmgBonus||0)),target:target,col:t.col,
+      slow:t.slow||false,root:t.root||false,slowExtra:t.synSlowOnHit||0,
+      splash:es.effSplash,gB:t.gB+(t.synGBonus||0),aB:t.aB+(t.synAirBonus||0),
+      bB:t.bB+(t.synBossBonus||0),type:t.type,done:false});
   });
 
-  for(let i=projs.length-1;i>=0;i--){
-    const p=projs[i];
-    if(p.done){projs.splice(i,1);continue;}
+  for(var j=projs.length-1;j>=0;j--){
+    var p=projs[j];
+    if(p.done){projs.splice(j,1);continue;}
     if(p.target.dead||p.target.reached){p.done=true;continue;}
     p.x+=p.vx*dt;p.y+=p.vy*dt;
-    const dx=p.x-p.target.x,dy=p.y-p.target.y;
-    if(Math.sqrt(dx*dx+dy*dy)<12){
-      let dmg=p.dmg;
-      if(p.target.isBoss)dmg*=p.bB;else if(p.target.isAir)dmg*=p.aB;else dmg*=p.gB;
-      const slowDur=(p.slow?1.8:0)+(p.slowExtra||0);
-      const rootDur=p.root?2.8:0;
-
+    var pdx=p.x-p.target.x,pdy=p.y-p.target.y;
+    if(Math.sqrt(pdx*pdx+pdy*pdy)<14){
+      var fdmg=p.dmg;
+      if(p.target.isBoss)fdmg*=p.bB;else if(p.target.isAir)fdmg*=p.aB;else fdmg*=p.gB;
+      var slowDur2=(p.slow?1.8:0)+(p.slowExtra||0);
+      var rootDur=p.root?2.8:0;
       if(p.splash>0){
-        // AoE splash for mangrove
-        const splashR=p.splash*CELL;
-        enemies.forEach(en=>{
+        var sr=p.splash*CELL;
+        enemies.forEach(function(en){
           if(en.dead||en.reached||en.isAir)return;
-          const ex=en.x-p.target.x,ey=en.y-p.target.y;
-          if(Math.sqrt(ex*ex+ey*ey)<=splashR){
-            let sdmg=dmg*(en===p.target?1:0.6);
-            applyDamage(en,sdmg,slowDur,rootDur);
-          }
+          var ex=en.x-p.target.x,ey=en.y-p.target.y;
+          if(Math.sqrt(ex*ex+ey*ey)<=sr)applyDmg(en,fdmg*(en===p.target?1:0.6),slowDur2,rootDur);
         });
-        aoeEffects.push({x:p.target.x,y:p.target.y,r:splashR,life:0.35,maxLife:0.35,col:'rgba(30,200,80,'});
+        aoeEffects.push({x:p.target.x,y:p.target.y,r:sr,life:0.4,maxLife:0.4,type:'mangrove'});
       } else {
-        applyDamage(p.target,dmg,slowDur,rootDur);
+        applyDmg(p.target,fdmg,slowDur2,rootDur);
       }
       p.done=true;
     }
   }
 
-  aoeEffects=aoeEffects.filter(e=>{e.life-=dt;return e.life>0;});
+  // particles
+  particles=particles.filter(function(p){
+    p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=80*dt;p.life-=dt;return p.life>0;
+  });
+  aoeEffects=aoeEffects.filter(function(e){e.life-=dt;return e.life>0;});
 
   if(waveActive&&spawnedCount>=totalToSpawn&&totalToSpawn>0){
-    if(enemies.filter(e=>!e.dead&&!e.reached).length===0)onWaveComplete();
+    if(enemies.filter(function(e){return !e.dead&&!e.reached;}).length===0)onWaveComplete();
   }
+}
+
+// ── RENDER ──
+function drawRoundRect(x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
 
 function render(){
   if(!canvas.width)return;
-  const S=SEASONS[seasonIdx];
-  ctx.fillStyle=S.bg;ctx.fillRect(0,0,canvas.width,canvas.height);
-  if(S.name==='Winter'){ctx.fillStyle='rgba(100,160,255,0.05)';ctx.fillRect(0,0,canvas.width,canvas.height);}
-  if(S.name==='Autumn'){ctx.fillStyle='rgba(200,80,10,0.05)';ctx.fillRect(0,0,canvas.width,canvas.height);}
-  if(S.name==='Summer'){ctx.fillStyle='rgba(255,200,0,0.03)';ctx.fillRect(0,0,canvas.width,canvas.height);}
+  var S=SEASONS[seasonIdx];
 
-  for(let c=0;c<COLS;c++){
-    ctx.fillStyle=c%2===0?'rgba(255,255,255,0.012)':'rgba(0,0,0,0)';
+  // background
+  ctx.fillStyle=S.bg;ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // season overlay
+  if(S.name==='Winter'){
+    ctx.fillStyle='rgba(120,180,255,0.06)';ctx.fillRect(0,0,canvas.width,canvas.height);
+    // snowflake dots
+    ctx.fillStyle='rgba(200,230,255,0.15)';
+    for(var si=0;si<20;si++){
+      ctx.beginPath();ctx.arc((si*73)%canvas.width,(((si*137)+Date.now()*0.02)%canvas.height),1.5,0,Math.PI*2);ctx.fill();
+    }
+  }
+  if(S.name==='Autumn'){ctx.fillStyle='rgba(200,80,10,0.05)';ctx.fillRect(0,0,canvas.width,canvas.height);}
+  if(S.name==='Summer'){ctx.fillStyle='rgba(255,180,0,0.03)';ctx.fillRect(0,0,canvas.width,canvas.height);}
+
+  // grid lanes
+  for(var c=0;c<COLS;c++){
+    ctx.fillStyle=c%2===0?'rgba(255,255,255,0.018)':'rgba(0,0,0,0)';
     ctx.fillRect(c*CELL,0,CELL,canvas.height);
   }
-  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=0.5;
-  for(let r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(COLS*CELL,r*CELL);ctx.stroke();}
-  for(let c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,ROWS*CELL);ctx.stroke();}
+  // grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=0.5;
+  for(var r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(COLS*CELL,r*CELL);ctx.stroke();}
+  for(var cc=0;cc<=COLS;cc++){ctx.beginPath();ctx.moveTo(cc*CELL,0);ctx.lineTo(cc*CELL,ROWS*CELL);ctx.stroke();}
 
+  // placement highlights
   if(selType&&selType!=='none'){
-    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
-      if(r===SEED_R&&c===SEED_C)continue;
-      if(towers.some(t=>t.c===c&&t.r===r))continue;
-      ctx.fillStyle='rgba(118,255,3,0.07)';ctx.fillRect(c*CELL+1,r*CELL+1,CELL-2,CELL-2);
+    for(var gr=0;gr<ROWS;gr++){
+      for(var gc=0;gc<COLS;gc++){
+        if(gr===SEED_R&&gc===SEED_C)continue;
+        if(towers.some(function(t){return t.c===gc&&t.r===gr;}))continue;
+        ctx.fillStyle='rgba(118,255,3,0.06)';
+        drawRoundRect(gc*CELL+2,gr*CELL+2,CELL-4,CELL-4,4);ctx.fill();
+      }
     }
   }
 
-  ctx.fillStyle='rgba(249,168,37,0.3)';ctx.fillRect(SEED_C*CELL,SEED_R*CELL,CELL,CELL);
-  ctx.font='bold '+(CELL*0.62)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillText('★',SEED_C*CELL+CELL/2,SEED_R*CELL+CELL/2);
-  ctx.fillStyle='rgba(198,40,40,0.35)';ctx.fillRect(0,0,COLS*CELL,5);
-  ctx.fillStyle='#ef9a9a';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.textBaseline='top';
-  ctx.fillText('ENEMY SPAWN',COLS*CELL/2,6);
+  // spawn zone
+  ctx.fillStyle='rgba(220,50,50,0.2)';ctx.fillRect(0,0,canvas.width,6);
+  ctx.fillStyle='rgba(239,154,154,0.8)';ctx.font='bold 9px -apple-system,sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('ENEMY SPAWN',canvas.width/2,7);
 
-  // draw willow aoe range indicator
-  towers.forEach(t=>{
-    if(t.isAoe){
-      const{effRange}=getEffectiveStats(t,S);
-      const tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2;
-      ctx.strokeStyle='rgba(100,200,80,0.2)';ctx.lineWidth=1;
-      ctx.beginPath();ctx.arc(tx,ty,effRange,0,Math.PI*2);ctx.stroke();
-      ctx.fillStyle='rgba(100,200,80,0.04)';ctx.fill();
-    }
+  // sacred seed
+  var sx=SEED_C*CELL,sy=SEED_R*CELL;
+  ctx.fillStyle='rgba(249,168,37,0.15)';drawRoundRect(sx+1,sy+1,CELL-2,CELL-2,6);ctx.fill();
+  ctx.strokeStyle='rgba(249,168,37,0.5)';ctx.lineWidth=1.5;drawRoundRect(sx+1,sy+1,CELL-2,CELL-2,6);ctx.stroke();
+  ctx.font='bold '+(CELL*0.58)+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='#f9a825';ctx.fillText('\u2605',sx+CELL/2,sy+CELL/2);
+
+  // willow aoe range
+  towers.forEach(function(t){
+    if(!t.isAoe)return;
+    var es=getEffStats(t,S);
+    var tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2;
+    ctx.strokeStyle='rgba(100,220,80,0.18)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(tx,ty,es.effRange,0,Math.PI*2);ctx.stroke();
+    ctx.fillStyle='rgba(100,220,80,0.04)';ctx.fill();
   });
 
-  towers.forEach((t,idx)=>{
-    const x=t.c*CELL+CELL/2,y=t.r*CELL+CELL/2;
+  // towers
+  towers.forEach(function(t,idx){
+    var tx=t.c*CELL+CELL/2,ty=t.r*CELL+CELL/2;
+    var es=getEffStats(t,S);
+
+    // range ring when selected
     if(idx===selTowerIdx){
-      const{effRange}=getEffectiveStats(t,S);
-      ctx.strokeStyle='rgba(118,255,3,0.45)';ctx.lineWidth=1;
-      ctx.beginPath();ctx.arc(x,y,effRange,0,Math.PI*2);ctx.stroke();
+      ctx.strokeStyle='rgba(118,255,3,0.4)';ctx.lineWidth=1;
+      ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(tx,ty,es.effRange,0,Math.PI*2);ctx.stroke();
+      ctx.setLineDash([]);
     }
+
     // synergy glow
     if(t.hasSynergy){
-      ctx.strokeStyle='rgba(255,215,0,0.6)';ctx.lineWidth=2;
-      ctx.strokeRect(t.c*CELL+1,t.r*CELL+1,CELL-2,CELL-2);
+      ctx.shadowColor='rgba(255,215,0,0.8)';ctx.shadowBlur=8;
+      ctx.strokeStyle='rgba(255,215,0,0.7)';ctx.lineWidth=2;
+      drawRoundRect(t.c*CELL+1,t.r*CELL+1,CELL-2,CELL-2,6);ctx.stroke();
+      ctx.shadowBlur=0;
     }
-    ctx.fillStyle=t.col;ctx.fillRect(t.c*CELL+2,t.r*CELL+2,CELL-4,CELL-4);
-    const im={oak:'🌳',pine:'🌲',willow:'🌿',mangrove:'🌴',elder:'🌳'};
-    ctx.font=(CELL*0.52)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(im[t.type]||'🌿',x,y);
-    if(t.tier>0){ctx.fillStyle='#ffd54f';ctx.font='bold 9px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('T'+t.tier,t.c*CELL+2,t.r*CELL+2);}
-    const bw=CELL-6,bh=3,bx=t.c*CELL+3,by=t.r*CELL+CELL-6;
-    ctx.fillStyle='#111';ctx.fillRect(bx,by,bw,bh);
-    const pct=Math.max(0,t.hp/t.maxHp);
-    ctx.fillStyle=pct>0.6?'#66bb6a':pct>0.3?'#ffa726':'#ef5350';ctx.fillRect(bx,by,Math.floor(bw*pct),bh);
+
+    // tower background
+    ctx.fillStyle=t.col;
+    drawRoundRect(t.c*CELL+2,t.r*CELL+2,CELL-4,CELL-4,5);ctx.fill();
+
+    // tower emoji
+    var im={oak:'\u{1F333}',pine:'\u{1F332}',willow:'\u{1F33F}',mangrove:'\u{1F334}',elder:'\u{1F333}'};
+    ctx.font=(CELL*0.52)+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(im[t.type]||'\u{1F33F}',tx,ty);
+
+    // tier badge
+    if(t.tier>0){
+      ctx.fillStyle='rgba(0,0,0,0.6)';drawRoundRect(t.c*CELL+2,t.r*CELL+2,16,13,3);ctx.fill();
+      ctx.fillStyle='#ffd54f';ctx.font='bold 9px -apple-system,sans-serif';
+      ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('T'+t.tier,t.c*CELL+4,t.r*CELL+3);
+    }
+
+    // HP bar
+    var bw=CELL-6,bh=4,bx=t.c*CELL+3,by2=t.r*CELL+CELL-6;
+    ctx.fillStyle='rgba(0,0,0,0.5)';drawRoundRect(bx,by2,bw,bh,2);ctx.fill();
+    var pct=Math.max(0,t.hp/t.maxHp);
+    ctx.fillStyle=pct>0.6?'#66bb6a':pct>0.3?'#ffa726':'#ef5350';
+    drawRoundRect(bx,by2,Math.floor(bw*pct),bh,2);ctx.fill();
   });
 
-  // AoE effect rings
-  aoeEffects.forEach(e=>{
-    const alpha=e.life/e.maxLife*0.35;
-    ctx.strokeStyle=e.col+alpha+')';ctx.lineWidth=2;
-    ctx.beginPath();ctx.arc(e.x,e.y,e.r*(1.2-e.life/e.maxLife*0.2),0,Math.PI*2);ctx.stroke();
-    ctx.fillStyle=e.col+(alpha*0.3)+')';ctx.fill();
+  // aoe effects
+  aoeEffects.forEach(function(e){
+    var alpha=(e.life/e.maxLife);
+    var expand=1+(1-alpha)*0.4;
+    if(e.type==='willow'){
+      ctx.strokeStyle='rgba(100,220,80,'+alpha*0.5+')';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(e.x,e.y,e.r*expand,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='rgba(100,220,80,'+alpha*0.08+')';ctx.fill();
+    } else {
+      ctx.strokeStyle='rgba(50,180,100,'+alpha*0.7+')';ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.arc(e.x,e.y,e.r*expand,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='rgba(50,180,100,'+alpha*0.12+')';ctx.fill();
+    }
   });
 
-  enemies.forEach(en=>{
+  // enemies
+  enemies.forEach(function(en){
     if(en.dead||en.reached)return;
-    const sz=en.isBoss?CELL*0.8:CELL*0.58;
-    if(en.isAir){ctx.globalAlpha=0.7;ctx.fillStyle='rgba(123,31,162,0.3)';ctx.beginPath();ctx.arc(en.x,en.y,CELL*0.4,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
-    ctx.font=sz+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(en.e,en.x,en.y);
-    const bw=en.isBoss?CELL*1.1:CELL*0.7,bh=3,bx=en.x-bw/2,by=en.y+sz*0.55;
-    ctx.fillStyle='#111';ctx.fillRect(bx,by,bw,bh);
-    const pct=Math.max(0,en.hp/en.maxHp);
-    ctx.fillStyle=en.isAir?'#ce93d8':en.isBoss?'#ff5252':'#e53935';ctx.fillRect(bx,by,Math.floor(bw*pct),bh);
-    if(en.slowT>0){ctx.fillStyle='rgba(100,181,246,0.9)';ctx.font='8px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SLOW',en.x,en.y-sz*0.72);}
+    var sz=en.isBoss?CELL*0.78:CELL*0.6;
+
+    // flying glow
+    if(en.isAir){
+      ctx.fillStyle='rgba(106,27,154,0.25)';
+      ctx.beginPath();ctx.arc(en.x,en.y,CELL*0.42,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='rgba(179,136,255,0.4)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(en.x,en.y,CELL*0.42,0,Math.PI*2);ctx.stroke();
+    }
+
+    // boss glow
+    if(en.isBoss){
+      ctx.fillStyle='rgba(183,28,28,0.2)';
+      ctx.beginPath();ctx.arc(en.x,en.y,CELL*0.6,0,Math.PI*2);ctx.fill();
+    }
+
+    ctx.font=sz+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(en.e,en.x,en.y);
+
+    // HP bar
+    var bw2=en.isBoss?CELL*1.2:CELL*0.72,bh2=3;
+    var bx2=en.x-bw2/2,by3=en.y+sz*0.58;
+    ctx.fillStyle='rgba(0,0,0,0.6)';drawRoundRect(bx2,by3,bw2,bh2,1);ctx.fill();
+    var pct2=Math.max(0,en.hp/en.maxHp);
+    ctx.fillStyle=en.isAir?'#ce93d8':en.isBoss?'#ff5252':'#e53935';
+    drawRoundRect(bx2,by3,Math.floor(bw2*pct2),bh2,1);ctx.fill();
+
+    // slow indicator
+    if(en.slowT>0){
+      ctx.fillStyle='rgba(100,181,246,0.85)';ctx.font='8px -apple-system,sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('SLOW',en.x,en.y-sz*0.74);
+    }
   });
 
-  projs.forEach(p=>{
+  // projectiles
+  projs.forEach(function(p){
     if(p.done)return;
-    ctx.fillStyle=p.col||'#aed581';
-    ctx.beginPath();ctx.arc(p.x,p.y,p.splash>0?4:2.5,0,Math.PI*2);ctx.fill();
+    // styled per tower type
+    if(p.type==='mangrove'){
+      ctx.fillStyle='#1de9b6';ctx.strokeStyle='rgba(0,200,130,0.5)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.stroke();
+    } else if(p.type==='willow'){
+      ctx.fillStyle='#b2ff59';
+      ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();
+    } else if(p.type==='elder'){
+      ctx.fillStyle='#ea80fc';ctx.strokeStyle='rgba(200,80,255,0.4)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.stroke();
+    } else if(p.type==='pine'){
+      ctx.fillStyle='#b9f6ca';
+      ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill();
+    } else {
+      ctx.fillStyle='#ff8a65';
+      ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();
+    }
   });
 
+  // particles
+  particles.forEach(function(p){
+    var alpha=p.life/p.maxLife;
+    ctx.globalAlpha=alpha;ctx.fillStyle=p.col;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.size*alpha,0,Math.PI*2);ctx.fill();
+  });
+  ctx.globalAlpha=1;
+
+  // wave counter bar
   if(waveActive&&totalToSpawn>0){
-    const alive=enemies.filter(e=>!e.dead&&!e.reached).length+Math.max(0,totalToSpawn-spawnedCount);
-    ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(0,canvas.height-18,canvas.width,18);
-    ctx.fillStyle='#a5d6a7';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText('Enemies remaining: '+alive,canvas.width/2,canvas.height-9);
+    var alive=enemies.filter(function(e){return !e.dead&&!e.reached;}).length+Math.max(0,totalToSpawn-spawnedCount);
+    ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(0,canvas.height-20,canvas.width,20);
+    ctx.fillStyle='#a5d6a7';ctx.font='10px -apple-system,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('Enemies remaining: '+alive,canvas.width/2,canvas.height-10);
   }
 }
 
+// ── LOOP ──
 function loop(ts){
-  const dt=Math.min((ts-(lastTime||ts))/1000,0.05);
-  lastTime=ts;
+  var dt=Math.min((ts-(lastTime||ts))/1000,0.05);lastTime=ts;
   if($('eiPop').style.display!=='block'&&towers!==undefined)update(dt);
   if(towers!==undefined)render();
   requestAnimationFrame(loop);
 }
+
+// ── ICON ──
+function rrect(c,x,y,w,h,r){
+  c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);
+  c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);
+  c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);
+  c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);
+  c.quadraticCurveTo(x,y,x+r,y);c.closePath();
+}
+window.addEventListener('load',function(){
+  var ic=document.createElement('canvas');ic.width=180;ic.height=180;
+  var c=ic.getContext('2d');
+  c.fillStyle='#071407';rrect(c,0,0,180,180,36);c.fill();
+  c.fillStyle='#0d2010';rrect(c,6,6,168,168,30);c.fill();
+  c.strokeStyle='#2e7d32';c.lineWidth=3;rrect(c,6,6,168,168,30);c.stroke();
+  c.font='90px serif';c.textAlign='center';c.textBaseline='middle';c.fillText('\u{1F333}',90,72);
+  c.font='38px serif';c.fillText('\u{1F332}',36,118);c.fillText('\u{1F334}',144,118);
+  c.fillStyle='#f9a825';c.font='bold 36px serif';c.fillText('\u2605',90,146);
+  c.fillStyle='#c8e6c9';c.font='bold 13px -apple-system,sans-serif';c.textBaseline='bottom';c.fillText('TREANT TD',90,176);
+  var lnk=document.createElement('link');lnk.rel='apple-touch-icon';lnk.href=ic.toDataURL('image/png');document.head.appendChild(lnk);
+  var lnk2=document.createElement('link');lnk2.rel='icon';lnk2.type='image/png';lnk2.href=ic.toDataURL('image/png');document.head.appendChild(lnk2);
+});
 </script>
 </body>
 </html>
